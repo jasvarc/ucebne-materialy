@@ -26,7 +26,7 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent
 MARK = "<!-- generate_index.py -->"
-PAGE_TITLE = "Učebné materiály"
+PAGE_TITLE = "Pachove učebné materiály"
 PAGE_SUB = "Výťahy z učiva – prehliadateľné na mobile, tablete aj počítači, vytlačiteľné na A4."
 ANIMACIE_URL = "https://jasvarc.github.io/animacie/"
 
