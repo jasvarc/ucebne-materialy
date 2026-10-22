@@ -140,9 +140,13 @@ def doc(title, depth, heading, sub, summary, body, crumb=None, oblast=None):
     attr = f' data-oblast="{html.escape(oblast)}"' if oblast else ""
     sub_html = f'<p class="sub">{html.escape(sub)}</p>' if sub else ""
     foot = ""
+    logo_html = ""
     if depth == 0:
         foot = (f'    <p class="pata">Interaktívne animácie nájdeš na '
                 f'<a href="{ANIMACIE_URL}">jasvarc.github.io/animacie</a>.</p>\n')
+        logo_html = (f'      <img class="logo" src="logo.png" width="96" height="96" '
+                     f'alt="Logo – učebné materiály, jasvarc.github.io/ucebne-materialy">\n')
+    icon = "../" * depth + "logo.png"
     return f"""<!DOCTYPE html>
 {MARK}
 <html lang="sk">
@@ -151,13 +155,13 @@ def doc(title, depth, heading, sub, summary, body, crumb=None, oblast=None):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#04060c">
   <title>{html.escape(title)}</title>
-  <link rel="icon" href="data:,">
+  <link rel="icon" href="{icon}">
   <link rel="stylesheet" href="{css}">
 </head>
 <body class="rozcestnik"{attr}>
   <div class="wrap">
 {crumb_html}    <header class="hero card">
-      <div>
+{logo_html}      <div>
         <h1>{html.escape(heading)}</h1>
         {sub_html}
         <p class="sum">{summary}</p>

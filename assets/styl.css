@@ -214,7 +214,18 @@ figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.3em; }
   -webkit-backdrop-filter: blur(10px);
 }
 
-.hero { margin: 8px 0 28px; padding: 18px 20px; }
+.hero { margin: 8px 0 28px; padding: 18px 20px; justify-content: flex-start; gap: 18px; }
+
+.logo {
+  width: 96px;
+  height: 96px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  display: block;
+  box-shadow: 0 0 0 2px var(--line), 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 420px) { .logo { width: 64px; height: 64px; } }
 
 .rozcestnik h1 {
   margin: 0;
