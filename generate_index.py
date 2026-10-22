@@ -171,8 +171,9 @@ def doc(title, depth, heading, sub, summary, body, crumb=None, oblast=None):
     aside_html = ""
     dialog_html = ""
     if depth == 0:
-        foot = (f'    <p class="pata">Interaktívne animácie nájdeš na '
-                f'<a href="{ANIMACIE_URL}">jasvarc.github.io/animacie</a>.</p>\n')
+        foot = (f'    <p class="pata"><a class="sister" href="{ANIMACIE_URL}">'
+                f'<img src="assets/logo-animacie.png" width="32" height="32" alt="">'
+                f'<span>Interaktívne animácie: <b>jasvarc.github.io/animacie</b></span></a></p>\n')
         logo_html = (f'      <img class="logo" src="logo.png" width="96" height="96" '
                      f'alt="Logo – učebné materiály, jasvarc.github.io/ucebne-materialy">\n')
         aside_html = (f'      <aside class="support card">\n'

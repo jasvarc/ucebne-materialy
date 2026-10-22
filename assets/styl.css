@@ -406,7 +406,28 @@ a.crumb:hover { text-decoration: underline; }
 .rozcestnik li a.card:hover .go { transform: translateX(4px); }
 
 .rozcestnik .empty { color: var(--muted); }
-.rozcestnik .pata { text-align: center; border-top: 0; }
+.rozcestnik .pata { text-align: center; border-top: 0; margin-top: 36px; }
+
+/* odkaz na súrodeneckú stránku s malým logom */
+a.sister {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+a.sister img { width: 32px; height: 32px; border-radius: 50%; flex: 0 0 auto; display: block; }
+a.sister b { color: var(--gold2); font-weight: 600; }
+a.sister:hover,
+a.sister:focus-visible { border-color: var(--gold); background: rgba(255, 255, 255, 0.07); }
+a.sister:focus-visible { outline: 3px solid var(--gold2); outline-offset: 2px; }
 
 @media (max-width: 520px) { .rozcestnik ul { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) {
