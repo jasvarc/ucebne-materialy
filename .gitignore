@@ -1,0 +1,5 @@
+# Rozcestníky generuje generate_index.py (v GitHub Action aj lokálne), do repozitára sa nedávajú
+/index.html
+/*/index.html
+/*/*/index.html
+!/_sablona/index.html

@@ -6,11 +6,11 @@
   <title>Zlomky – ukážka</title>
   <link rel="stylesheet" href="../../../assets/styl.css">
 </head>
-<body>
+<body data-oblast="matematika">
   <div class="sheet">
 
     <div class="toolbar noprint">
-      <a href="../../../">← Rozcestník</a>
+      <a href="../">← Späť na zoznam</a>
       <button type="button" onclick="window.print()">Vytlačiť</button>
     </div>
 
@@ -23,9 +23,9 @@
 
       <figure>
         <svg viewBox="0 0 120 120" width="150" role="img" aria-label="Kruh rozdelený na 8 rovnakých dielov, 3 diely sú vyfarbené">
-          <path d="M60 60 L60 10 A50 50 0 0 1 95.36 95.36 Z" fill="#9dbcf0"/>
-          <circle cx="60" cy="60" r="50" fill="none" stroke="#1b2330" stroke-width="2"/>
-          <path d="M60 10 V110 M10 60 H110 M24.64 24.64 L95.36 95.36 M95.36 24.64 L24.64 95.36" stroke="#1b2330" stroke-width="1.5" fill="none"/>
+          <path class="svg-vypln" d="M60 60 L60 10 A50 50 0 0 1 95.36 95.36 Z"/>
+          <circle class="svg-ciara" cx="60" cy="60" r="50" stroke-width="2"/>
+          <path class="svg-ciara" d="M60 10 V110 M10 60 H110 M24.64 24.64 L95.36 95.36 M95.36 24.64 L24.64 95.36" stroke-width="1.5"/>
         </svg>
         <figcaption>Pizza rozdelená na 8 dielov, zjedli sme 3 diely: <span class="zl"><span>3</span><span>8</span></span></figcaption>
       </figure>
