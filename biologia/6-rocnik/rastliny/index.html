@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rastliny – stavba a rozmnožovanie</title>
+<link rel="icon" href="../../../logo.png">
+<style>
+:root{
+  --text:#1f2933; --muted:#52606d; --bg:#f5f7fa; --card:#ffffff;
+  --koren:#8d5a2b; --koren-l:#f3e6d6;
+  --stonka:#2e7d32; --stonka-l:#e3f2e1;
+  --list:#689f38; --list-l:#eef7de;
+  --kvet:#d81b60; --kvet-l:#fde7ef;
+  --plod:#ef6c00; --plod-l:#fff0de;
+  --semeno:#b8860b; --semeno-l:#fff6d6;
+  --rozm:#6a42b8; --rozm-l:#ece6f8;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 "Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:960px;margin:0 auto;padding:16px}
+h1,h2,h3{line-height:1.25;margin:0 0 .4em}
+p{margin:.4em 0}
+header.hero{background:linear-gradient(135deg,#2e7d32,#689f38);color:#fff;border-radius:16px;padding:22px 24px;margin-bottom:16px}
+header.hero h1{font-size:1.9rem}
+header.hero .meta{opacity:.95;font-weight:600}
+header.hero p.learn{background:rgba(255,255,255,.18);border-radius:10px;padding:10px 14px;margin-top:12px}
+.card{background:var(--card);border:2px solid #d9e2ec;border-radius:14px;padding:14px 16px;margin:0 0 14px;break-inside:avoid;page-break-inside:avoid}
+section.part{border-radius:16px;padding:14px;margin:0 0 18px;border:2px solid var(--c);background:var(--cl)}
+section.part>h2{background:var(--c);color:#fff;border-radius:10px;padding:8px 14px;font-size:1.35rem}
+.koren{--c:var(--koren);--cl:var(--koren-l)}
+.stonka{--c:var(--stonka);--cl:var(--stonka-l)}
+.list{--c:var(--list);--cl:var(--list-l)}
+.kvet{--c:var(--kvet);--cl:var(--kvet-l)}
+.plod{--c:var(--plod);--cl:var(--plod-l)}
+.semeno{--c:var(--semeno);--cl:var(--semeno-l)}
+.rozm{--c:var(--rozm);--cl:var(--rozm-l)}
+.card h3{font-size:1.05rem;color:var(--c,#333)}
+.card h3 span.ico{margin-right:4px}
+figure{margin:8px 0 4px;break-inside:avoid;page-break-inside:avoid}
+figure svg{display:block;width:100%;height:auto;background:#fff;border:1px solid #d9e2ec;border-radius:10px}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:4px}
+svg text{font-family:"Segoe UI",Roboto,Arial,sans-serif;font-size:12.5px;fill:#1f2933}
+svg .lead{stroke:#52606d;stroke-width:1.2;fill:none}
+svg .cap{font-weight:700;font-size:13px}
+.remember{background:#fff8c5;border:2px solid #f1c40f;border-radius:12px;padding:10px 14px;margin:0 0 14px;break-inside:avoid;page-break-inside:avoid}
+.remember h3{color:#7a5b00;margin-bottom:.2em}
+.remember ul{margin:.2em 0 .2em 1.1em;padding:0}
+.life{background:#fff;border-left:6px solid var(--c);border-radius:8px;padding:8px 12px;margin:0 0 14px;break-inside:avoid;page-break-inside:avoid}
+.life b.t{color:var(--c)}
+.warn{background:#ffe9e9;border:2px solid #e57373;border-radius:12px;padding:8px 12px;margin:0 0 14px;break-inside:avoid;page-break-inside:avoid}
+.ext{font-size:.8em;font-weight:700;color:#7b1fa2;white-space:nowrap}
+ul.tight{margin:.3em 0 .3em 1.1em;padding:0}
+ul.tight li{margin:.15em 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{border:1.5px solid #9aa5b1;padding:6px 8px;vertical-align:top;text-align:left}
+th{background:var(--c,#ddd);color:#fff}
+tr{break-inside:avoid;page-break-inside:avoid}
+.tablewrap{overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid2 .card{margin:0}
+dl.gloss{columns:2;column-gap:22px;margin:0}
+dl.gloss div{break-inside:avoid;page-break-inside:avoid;margin:0 0 6px}
+dl.gloss dt{font-weight:700;color:#334e68}
+dl.gloss dd{margin:0}
+ol.q li{margin:.5em 0;break-inside:avoid;page-break-inside:avoid}
+.line{display:inline-block;border-bottom:1.5px solid #333;min-width:90px}
+.lines{border-bottom:1.5px solid #9aa5b1;height:1.5em;margin:.1em 0}
+.answers{border:3px dashed #7e57c2}
+.pbreak{break-before:page;page-break-before:always}
+.tag{display:inline-block;background:#e0e7ff;border-radius:999px;padding:0 8px;font-size:.8rem;font-weight:700}
+.toolbar{display:flex;justify-content:space-between;gap:10px;margin:0 0 12px}
+.toolbar a,.toolbar button{font:inherit;font-weight:600;color:#1b5e20;background:#fff;border:2px solid #2e7d32;border-radius:10px;padding:6px 12px;text-decoration:none;cursor:pointer}
+.noprint{}
+footer{color:var(--muted);font-size:.85rem;text-align:center;margin:16px 0}
+@media (max-width:640px){
+  main{padding:10px}
+  .grid2{grid-template-columns:1fr}
+  dl.gloss{columns:1}
+  header.hero h1{font-size:1.5rem}
+}
+@page{size:A4 portrait;margin:15mm}
+@media print{
+  html,body{background:#fff}
+  body{font-size:10pt;line-height:1.4;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  main{max-width:none;padding:0}
+  header.hero{border:2px solid #2e7d32;padding:10px 14px;margin-bottom:8px;border-radius:10px}
+  header.hero h1{font-size:18pt}
+  section.part{padding:8px;margin:0 0 10px;border-width:1.5px}
+  section.part>h2{font-size:13pt;padding:4px 10px}
+  .card,.remember,.life,.warn{padding:6px 10px;margin-bottom:7px}
+  figure svg{max-height:62mm;width:auto;max-width:100%;margin:0 auto}
+  figure.big svg{max-height:80mm}
+  svg text{font-size:12px}
+  .tablewrap{overflow:visible}
+  table{font-size:9pt}
+  th{color:#000;background:#ddd !important;border-color:#000}
+  th,td{border-color:#555}
+  .remember{background:#fff6b8 !important;border-color:#8a6d00}
+  dl.gloss{font-size:9pt}
+  footer{display:none}
+  .noprint{display:none !important}
+}
+</style>
+</head>
+<body data-oblast="biologia">
+<main>
+
+<div class="toolbar noprint">
+  <a href="../">← Späť na zoznam</a>
+  <button type="button" onclick="window.print()">Vytlačiť</button>
+</div>
+
+<header class="hero">
+  <h1>🌱 Rastliny – stavba a rozmnožovanie</h1>
+  <div class="meta">Biológia · 6. ročník ZŠ</div>
+  <p class="learn"><b>Čo sa naučíš:</b> z akých častí sa skladá rastlina a načo slúži koreň, stonka, list, kvet, plod a semeno. Pochopíš, ako z kvetu vznikne plod so semenami a ako sa rastliny rozmnožujú.</p>
+</header>
+
+<!-- ============ PREHĽAD ============ -->
+<div class="card">
+  <h3>🔎 Prehľad: z čoho sa skladá rastlina</h3>
+  <figure class="big">
+  <svg viewBox="0 0 560 400" role="img" aria-label="Schéma celej kvitnúcej rastliny: pod zemou koreň, nad zemou stonka s listami, na vrchu kvet, na stonke plod so semenami.">
+    <rect x="0" y="0" width="560" height="232" fill="#eaf6ff"/>
+    <rect x="0" y="232" width="560" height="168" fill="#e8d5bd"/>
+    <line x1="0" y1="232" x2="560" y2="232" stroke="#8d5a2b" stroke-width="3"/>
+    <!-- koreň -->
+    <g stroke="#8d5a2b" stroke-linecap="round" fill="none">
+      <path d="M200 232 L200 362" stroke-width="7"/>
+      <path d="M200 262 L150 297 M200 262 L250 297 M200 297 L140 337 M200 297 L260 337 M200 327 L170 372 M200 327 L232 372" stroke-width="4"/>
+    </g>
+    <!-- stonka -->
+    <path d="M200 232 L200 78" stroke="#2e7d32" stroke-width="8" stroke-linecap="round"/>
+    <path d="M200 207 Q250 175 270 186" stroke="#2e7d32" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- listy -->
+    <ellipse cx="160" cy="170" rx="42" ry="17" transform="rotate(-25 160 170)" fill="#8bc34a" stroke="#558b2f" stroke-width="1.5"/>
+    <ellipse cx="242" cy="135" rx="42" ry="17" transform="rotate(25 242 135)" fill="#8bc34a" stroke="#558b2f" stroke-width="1.5"/>
+    <!-- kvet -->
+    <g transform="translate(200,60)">
+      <g fill="#f48fb1" stroke="#d81b60" stroke-width="1.2">
+        <ellipse cx="0" cy="-20" rx="11" ry="18"/>
+        <ellipse cx="0" cy="-20" rx="11" ry="18" transform="rotate(60)"/>
+        <ellipse cx="0" cy="-20" rx="11" ry="18" transform="rotate(120)"/>
+        <ellipse cx="0" cy="-20" rx="11" ry="18" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-20" rx="11" ry="18" transform="rotate(240)"/>
+        <ellipse cx="0" cy="-20" rx="11" ry="18" transform="rotate(300)"/>
+      </g>
+      <circle r="9" fill="#ffd54f" stroke="#f9a825"/>
+    </g>
+    <!-- plod so semenami -->
+    <circle cx="292" cy="192" r="28" fill="#ffa726" stroke="#ef6c00" stroke-width="2"/>
+    <g fill="#f9c80e" stroke="#b8860b">
+      <ellipse cx="283" cy="188" rx="4.5" ry="7"/><ellipse cx="301" cy="188" rx="4.5" ry="7"/><ellipse cx="292" cy="203" rx="4.5" ry="7"/>
+    </g>
+    <!-- popisky -->
+    <g class="lead">
+      <path d="M214 60 H345"/><path d="M320 188 H345"/><path d="M299 192 L345 222"/><path d="M262 130 H345" opacity="0"/>
+      <path d="M278 125 H345"/><path d="M252 297 H345 " opacity="0"/><path d="M256 306 H345"/>
+      <path d="M124 178 H68"/><path d="M196 215 H68"/>
+    </g>
+    <text x="352" y="64" class="cap">kvet</text>
+    <text x="352" y="192" class="cap">plod</text>
+    <text x="352" y="226" class="cap">semeno</text>
+    <text x="352" y="129" class="cap">list</text>
+    <text x="352" y="310" class="cap">koreň</text>
+    <text x="62" y="182" class="cap" text-anchor="end">list</text>
+    <text x="62" y="219" class="cap" text-anchor="end">stonka</text>
+    <text x="12" y="250" style="font-size:11px;fill:#6d4c22">pod zemou</text>
+    <text x="12" y="222" style="font-size:11px;fill:#37506b">nad zemou</text>
+  </svg>
+  <figcaption>Celá kvitnúca rastlina. Koreň je pod zemou, stonka s listami a kvetom nad zemou. Plod vzniká z kvetu a v ňom sú semená.</figcaption>
+  </figure>
+</div>
+
+<!-- ============ 1. KOREŇ ============ -->
+<section class="part koren" id="koren">
+  <h2>🥕 1. Koreň</h2>
+  <div class="card">
+    <h3>Funkcia</h3>
+    <p>Koreň <b>upevňuje</b> rastlinu v pôde a <b>prijíma vodu s rozpustenými soľami</b> (to sú živiny z pôdy). Mnohé rastliny v ňom ukladajú aj <b>zásoby</b> (napr. cukry v mrkve). Koreň teda nie je len „kotva“.</p>
+  </div>
+  <div class="card">
+    <h3>Stavba</h3>
+    <p>Koreň rastie <b>na špičke</b>. Špičku chráni <b>koreňová čiapočka</b>, aby sa pri prerážaní hlinou nepoškodila. Kúsok nad ňou sú <b>koreňové vlásky</b> – drobné výrastky, ktoré cez tenkú stenu nasávajú vodu a soli. <i>Prečo ich je veľa?</i> Čím viac vlások, tým väčší povrch na vstrebávanie vody.</p>
+    <figure>
+    <svg viewBox="0 0 700 270" role="img" aria-label="Tri schémy: kolíkatý koreň s jedným hlavným koreňom a bočnými koreňmi, vláknitý koreň z mnohých rovnako silných koreňov a špička koreňa s koreňovou čiapočkou a koreňovými vláskami.">
+      <rect x="0" y="0" width="700" height="270" fill="#fff"/>
+      <rect x="0" y="30" width="700" height="190" fill="#f3e6d6"/>
+      <line x1="0" y1="30" x2="700" y2="30" stroke="#8d5a2b" stroke-width="2.5"/>
+      <!-- kolíkatý -->
+      <g stroke="#8d5a2b" stroke-linecap="round" fill="none">
+        <path d="M90 30 L90 205" stroke-width="9"/>
+        <path d="M90 70 L50 100 M90 70 L132 98 M90 110 L45 145 M90 110 L136 142 M90 150 L60 185 M90 150 L124 182" stroke-width="4"/>
+      </g>
+      <path d="M90 30 V10" stroke="#2e7d32" stroke-width="6"/>
+      <path d="M95 118 H150" class="lead"/><text x="156" y="122" class="cap" style="font-size:12px">hlavný koreň</text>
+      <path d="M133 98 H150 " class="lead" opacity="0"/>
+      <path d="M133 142 L150 156" class="lead"/><text x="154" y="170" style="font-size:12px">bočné korene</text>
+      <text x="90" y="250" text-anchor="middle" class="cap">Kolíkatý koreň</text>
+      <!-- vláknitý -->
+      <g stroke="#8d5a2b" stroke-linecap="round" fill="none" stroke-width="3.5">
+        <path d="M300 30 L255 190"/><path d="M300 30 L275 205"/><path d="M300 30 L300 210"/><path d="M300 30 L325 205"/><path d="M300 30 L345 190"/>
+        <path d="M300 30 L240 140"/><path d="M300 30 L360 140"/>
+      </g>
+      <path d="M300 30 V10" stroke="#2e7d32" stroke-width="4"/><path d="M296 30 V10 M304 30 V10" stroke="#2e7d32" stroke-width="2"/>
+      <text x="300" y="250" text-anchor="middle" class="cap">Vláknitý koreň</text>
+      <text x="300" y="232" text-anchor="middle" style="font-size:11px">(veľa rovnako silných koreňov)</text>
+      <!-- špička -->
+      <path d="M520 30 V195 Q520 222 540 224 Q560 222 560 195 V30 Z" fill="#fbe9c8" stroke="#8d5a2b" stroke-width="2"/>
+      <path d="M515 190 Q515 232 540 236 Q565 232 565 190 Q540 205 515 190 Z" fill="#c9a06a" stroke="#8d5a2b" stroke-width="1.5"/>
+      <g stroke="#6d4c22" stroke-width="1.5" stroke-linecap="round">
+        <path d="M520 95 L504 90 M520 108 L502 106 M520 121 L504 124 M520 134 L503 140 M520 147 L506 156 M520 160 L508 170"/>
+        <path d="M560 95 L576 90 M560 108 L578 106 M560 121 L576 124 M560 134 L577 140 M560 147 L574 156 M560 160 L572 170"/>
+      </g>
+      <path d="M578 115 H606" class="lead"/><text x="610" y="112" style="font-size:12px" class="cap">koreňové</text><text x="610" y="127" style="font-size:12px" class="cap">vlásky</text>
+      <path d="M566 218 H606" class="lead"/><text x="610" y="214" style="font-size:12px" class="cap">koreňová</text><text x="610" y="229" style="font-size:12px" class="cap">čiapočka</text>
+      <text x="540" y="258" text-anchor="middle" class="cap">Špička koreňa</text>
+      <text x="8" y="22" style="font-size:11px;fill:#37506b">povrch pôdy</text>
+    </svg>
+    <figcaption>Dva typy koreňovej sústavy a zväčšená špička koreňa.</figcaption>
+    </figure>
+  </div>
+  <div class="card">
+    <h3>Druhy / premeny</h3>
+    <ul class="tight">
+      <li><b>Kolíkatý koreň</b> – jeden hrubý hlavný koreň a z neho bočné korene (mrkva, jabloň, púpava).</li>
+      <li><b>Vláknitý koreň</b> – veľa rovnako tenkých koreňov, nie je medzi nimi hlavný (trávy, obilniny – pšenica).</li>
+      <li><b>Zhrubnutý koreň (premena)</b> – koreň ako zásobáreň živín (mrkva, repa, reďkovka).</li>
+    </ul>
+  </div>
+  <div class="remember">
+    <h3>⭐ Zapamätaj si</h3>
+    <ul>
+      <li>Koreň <b>prijíma vodu a soli</b>, upevňuje rastlinu a môže mať zásoby.</li>
+      <li>Vodu nasávajú <b>koreňové vlásky</b>; špičku chráni <b>koreňová čiapočka</b>.</li>
+      <li>Dva typy: <b>kolíkatý</b> a <b>vláknitý</b>.</li>
+    </ul>
+  </div>
+  <div class="life"><b class="t">🥕 Príklad zo života:</b> <b>Mrkva</b>, ktorú jeme, je zhrubnutý kolíkatý koreň plný zásobných cukrov.</div>
+</section>
+
+<!-- ============ 2. STONKA ============ -->
+<section class="part stonka" id="stonka">
+  <h2>🌿 2. Stonka</h2>
+  <div class="card">
+    <h3>Funkcia</h3>
+    <p>Stonka <b>nesie listy a kvety</b> a vynáša ich k svetlu. Je to aj „dopravná cesta“: <b>vedie vodu a soli</b> z koreňa nahor a <b>cukry</b> z listov do ostatných častí rastliny. Niekedy ukladá zásoby.</p>
+  </div>
+  <div class="card">
+    <h3>Stavba</h3>
+    <p>V priereze stonkou drevnatej rastliny (strom, ker) vidíme od okraja dovnútra: <b>kôru</b> (chráni), <b>lyko</b> (vedie cukry z listov nadol), <b>drevo</b> (vedie vodu a soli z koreňa nahor) a v strede <b>dreň</b>. Drevo je pevné, preto stonka udrží listy a kvety.</p>
+    <figure>
+    <svg viewBox="0 0 600 250" role="img" aria-label="Prierez stonkou: v strede dreň, okolo drevo, potom lyko a navonok kôra. Šípky ukazujú, že drevom prúdi voda a soli nahor a lykom cukry nadol.">
+      <rect width="600" height="250" fill="#fff"/>
+      <circle cx="120" cy="125" r="100" fill="#8d6e63" stroke="#5d4037" stroke-width="2"/>
+      <circle cx="120" cy="125" r="86" fill="#aed581" stroke="#689f38"/>
+      <circle cx="120" cy="125" r="76" fill="#e6c07b" stroke="#a1783a"/>
+      <g stroke="#a1783a" stroke-width="1" fill="none" opacity=".7"><circle cx="120" cy="125" r="62"/><circle cx="120" cy="125" r="48"/></g>
+      <circle cx="120" cy="125" r="26" fill="#fff8e1" stroke="#c9b27c"/>
+      <g class="lead">
+        <path d="M190 56 L252 36"/><path d="M186 74 L252 78"/><path d="M168 112 L252 120"/><path d="M128 128 L252 162"/>
+      </g>
+      <text x="258" y="40" class="cap">kôra <tspan style="font-weight:400">(chráni stonku)</tspan></text>
+      <text x="258" y="82" class="cap">lyko <tspan style="font-weight:400">(vedie cukry nadol)</tspan></text>
+      <text x="258" y="124" class="cap">drevo <tspan style="font-weight:400">(vedie vodu a soli nahor)</tspan></text>
+      <text x="258" y="166" class="cap">dreň <tspan style="font-weight:400">(mäkké pletivo v strede)</tspan></text>
+      <text x="258" y="206" style="fill:#0b5aa6;font-weight:700">↑ voda a soli: z koreňa do listov</text>
+      <text x="258" y="228" style="fill:#b45309;font-weight:700">↓ cukry: z listov do celej rastliny</text>
+    </svg>
+    <figcaption>Priečny rez stonkou drevnatej rastliny.</figcaption>
+    </figure>
+  </div>
+  <div class="card">
+    <h3>Druhy / premeny</h3>
+    <ul class="tight">
+      <li><b>Byľ</b> – mäkká zelená stonka bylín (paradajka, slnečnica).</li>
+      <li><b>Steblo</b> – dutá stonka s kolienkami (tráva, pšenica).</li>
+      <li><b>Kmeň</b> – hrubá drevnatá stonka stromov (dub, jabloň).</li>
+      <li><b>Podzemok</b> – stonka rastúca pod zemou (pýr, konvalinka).</li>
+      <li><b>Hľuza</b> – zhrubnutá podzemná stonka so zásobami (zemiak).</li>
+      <li><b>Cibuľa</b> – veľmi krátka stonka s mäsitými listami plnými zásob (tulipán, cesnak).</li>
+    </ul>
+  </div>
+  <div class="remember">
+    <h3>⭐ Zapamätaj si</h3>
+    <ul>
+      <li>Stonka nesie listy a kvety a <b>vedie látky</b>: drevom nahor, lykom nadol.</li>
+      <li>Typy nadzemných stoniek: <b>byľ, steblo, kmeň</b>.</li>
+      <li>Niektoré stonky sú <b>pod zemou</b> (podzemok, hľuza, cibuľa).</li>
+    </ul>
+  </div>
+  <div class="life"><b class="t">🥔 Príklad zo života:</b> <b>Zemiak</b> nie je koreň, ale hľuza – zhrubnutá podzemná stonka.</div>
+</section>
+
+<!-- ============ 3. LIST ============ -->
+<section class="part list" id="list">
+  <h2>🍃 3. List</h2>
+  <div class="card">
+    <h3>Funkcia</h3>
+    <p>V liste prebieha <b>fotosyntéza</b>: rastlina z <b>vody</b> a <b>oxidu uhličitého</b> (CO₂) vyrobí pomocou <b>svetla</b> <b>cukor</b> a uvoľní <b>kyslík</b>. List tiež <b>dýcha</b> (spotrebúva kyslík – dňa aj v noci) a <b>odparuje vodu</b>.</p>
+    <p><b>Voda + CO₂ + svetlo → cukor + kyslík</b></p>
+    <p><i>Prečo majú listy veľkú plochu?</i> Aby zachytili čo najviac svetla. <i>Prečo sú zelené?</i> Obsahujú zelené farbivo <b>chlorofyl</b>, ktoré zachytáva svetlo.</p>
+  </div>
+  <div class="card">
+    <h3>Stavba</h3>
+    <p>List má plochú <b>čepeľ</b>, ktorou sa pripája k stonke <b>stopka</b>. Čepeľou prechádza <b>žilnatina</b> – rúrky, ktoré privádzajú vodu a odvádzajú cukry. Zvonka kryje list <b>pokožka</b>. V pokožke na spodnej strane sú drobné otvory – <b>prieduchy</b>; cez ne list prijíma CO₂, vydychuje kyslík a odparuje vodu. Pod pokožkou je <b>zelené pletivo</b> s chlorofylom, kde vzniká cukor.</p>
+    <figure>
+    <svg viewBox="0 0 760 270" role="img" aria-label="Vľavo vzhľad listu: čepeľ, stopka a žilnatina. Vpravo rez listom: horná pokožka, zelené pletivo s chloroplastmi, žilka, dolná pokožka a prieduch.">
+      <rect width="760" height="270" fill="#fff"/>
+      <path d="M130 215 L130 255" stroke="#558b2f" stroke-width="5" stroke-linecap="round"/>
+      <path d="M130 215 C58 185 48 95 130 22 C212 95 202 185 130 215 Z" fill="#9ccc65" stroke="#33691e" stroke-width="2"/>
+      <g stroke="#33691e" stroke-width="2" fill="none"><path d="M130 215 L130 30"/>
+        <path d="M130 185 L92 150 M130 185 L168 150 M130 150 L90 112 M130 150 L170 112 M130 115 L98 82 M130 115 L162 82"/></g>
+      <g class="lead"><path d="M180 100 L232 100"/><path d="M166 150 L232 150"/><path d="M130 240 L232 240"/></g>
+      <text x="238" y="104" class="cap">čepeľ</text>
+      <text x="238" y="154" class="cap">žilnatina</text>
+      <text x="238" y="244" class="cap">stopka</text>
+      <text x="130" y="12" text-anchor="middle" style="font-size:11px;fill:#52606d">list zhora</text>
+      <!-- rez listom -->
+      <text x="400" y="20" class="cap">Rez listom</text>
+      <rect x="330" y="50" width="240" height="16" fill="#c8e6c9" stroke="#2e7d32"/>
+      <rect x="330" y="66" width="240" height="92" fill="#66bb6a" stroke="#2e7d32"/>
+      <g fill="#1b5e20"><circle cx="350" cy="80" r="4"/><circle cx="378" cy="92" r="4"/><circle cx="405" cy="78" r="4"/><circle cx="430" cy="95" r="4"/><circle cx="352" cy="125" r="4"/><circle cx="380" cy="140" r="4"/><circle cx="410" cy="128" r="4"/><circle cx="535" cy="80" r="4"/><circle cx="520" cy="125" r="4"/><circle cx="548" cy="140" r="4"/><circle cx="505" cy="92" r="4"/></g>
+      <ellipse cx="470" cy="112" rx="24" ry="22" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+      <circle cx="462" cy="108" r="6" fill="#64b5f6" stroke="#0b5aa6"/><circle cx="480" cy="116" r="6" fill="#ffb74d" stroke="#b45309"/>
+      <rect x="330" y="158" width="240" height="16" fill="#c8e6c9" stroke="#2e7d32"/>
+      <rect x="526" y="156" width="26" height="20" fill="#fff"/>
+      <ellipse cx="520" cy="166" rx="8" ry="10" fill="#2e7d32"/><ellipse cx="558" cy="166" rx="8" ry="10" fill="#2e7d32"/>
+      <g class="lead"><path d="M572 58 H600"/><path d="M572 96 H600"/><path d="M494 112 H600"/><path d="M572 166 H600" opacity="0"/><path d="M570 170 H600"/><path d="M539 176 L539 205"/></g>
+      <text x="604" y="62">horná pokožka</text>
+      <text x="604" y="92">zelené pletivo</text><text x="604" y="106" style="font-size:11px">(chlorofyl, tu vzniká cukor)</text>
+      <text x="604" y="127">žilka (rúrky)</text>
+      <text x="604" y="174">dolná pokožka</text>
+      <text x="539" y="222" text-anchor="middle" class="cap">prieduch</text>
+      <text x="539" y="238" text-anchor="middle" style="font-size:11px">(vstup CO₂, výstup O₂ a vodnej pary)</text>
+    </svg>
+    <figcaption>Vľavo vzhľad listu, vpravo zjednodušený rez listom (v žilke modrá = voda, oranžová = cukry).</figcaption>
+    </figure>
+  </div>
+  <div class="card">
+    <h3>Druhy / premeny</h3>
+    <ul class="tight">
+      <li><b>Jednoduchý list</b> – čepeľ je celistvá (buk, dub, javor).</li>
+      <li><b>Zložený list</b> – čepeľ tvorí viac samostatných lístkov na jednej stopke (jaseň, ruža, agát).</li>
+      <li><b>Premeny listov:</b> ihlice (smrek, borovica – menšia plocha, menej vyparovania), úponky (hrach – pridržiavajú sa opory), mäsité listy cibule (zásoby).</li>
+    </ul>
+  </div>
+  <div class="remember">
+    <h3>⭐ Zapamätaj si</h3>
+    <ul>
+      <li>Fotosyntéza prebieha <b>hlavne v liste</b>: voda + CO₂ + svetlo → cukor + kyslík.</li>
+      <li>Plyny a vodná para prechádzajú cez <b>prieduchy</b>.</li>
+      <li>List môže byť <b>jednoduchý</b> alebo <b>zložený</b>.</li>
+    </ul>
+  </div>
+  <div class="life"><b class="t">🌳 Príklad zo života:</b> <b>Jabloň</b> v lete „vyrába“ v listoch cukor, z ktorého rastú jablká. Listy dnes ráno vyrobili kyslík, ktorý dýchame.</div>
+</section>
+
+<!-- ============ 4. KVET ============ -->
+<section class="part kvet" id="kvet">
+  <h2>🌸 4. Kvet</h2>
+  <div class="card">
+    <h3>Funkcia</h3>
+    <p>Kvet slúži na <b>pohlavné rozmnožovanie</b>: vznikajú v ňom pohlavné bunky a po oplodnení z neho vznikne plod so semenami.</p>
+  </div>
+  <div class="card">
+    <h3>Stavba</h3>
+    <p>Kvet sedí na <b>kvetnom lôžku</b> na konci <b>kvetnej stopky</b>. Zvonka sú <b>kališné lístky</b> (kalich – zelené, chránia púčik), potom <b>korunné lístky</b> (koruna – pestré, lákajú hmyz). Vnútri sú pohlavné orgány:</p>
+    <ul class="tight">
+      <li><b>tyčinka</b> = <b>nitka</b> + <b>peľnica</b> (v nej vzniká peľ – samčie bunky),</li>
+      <li><b>piestik</b> = <b>blizna</b> (lepkavá, zachytí peľ) + <b>čnelka</b> + <b>semenník</b>; v semenníku sú <b>vajíčka</b> (samičie bunky).</li>
+    </ul>
+    <figure class="big">
+    <svg viewBox="0 0 520 360" role="img" aria-label="Rez kvetom: kvetná stopka, kvetné lôžko, kalich, korunné lístky, dve tyčinky s nitkou a peľnicou a piestik s bliznou, čnelkou a semenníkom, v ktorom sú vajíčka.">
+      <rect width="520" height="360" fill="#fff"/>
+      <rect x="255" y="300" width="10" height="38" fill="#7cb342"/>
+      <ellipse cx="260" cy="296" rx="26" ry="10" fill="#7cb342" stroke="#33691e"/>
+      <ellipse cx="190" cy="205" rx="30" ry="90" transform="rotate(-18 190 205)" fill="#f8bbd0" stroke="#ec407a" stroke-width="1.5"/>
+      <ellipse cx="330" cy="205" rx="30" ry="90" transform="rotate(18 330 205)" fill="#f8bbd0" stroke="#ec407a" stroke-width="1.5"/>
+      <ellipse cx="222" cy="292" rx="28" ry="9" transform="rotate(-25 222 292)" fill="#43a047" stroke="#1b5e20"/>
+      <ellipse cx="298" cy="292" rx="28" ry="9" transform="rotate(25 298 292)" fill="#43a047" stroke="#1b5e20"/>
+      <path d="M232 285 L222 187" stroke="#9ccc65" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="221" cy="175" rx="9" ry="14" fill="#ffd54f" stroke="#f9a825" stroke-width="1.5"/>
+      <path d="M288 285 L298 187" stroke="#9ccc65" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="299" cy="175" rx="9" ry="14" fill="#ffd54f" stroke="#f9a825" stroke-width="1.5"/>
+      <rect x="256" y="175" width="8" height="58" fill="#aed581" stroke="#689f38"/>
+      <ellipse cx="260" cy="262" rx="28" ry="30" fill="#c5e1a5" stroke="#689f38" stroke-width="2"/>
+      <g fill="#ffe082" stroke="#f9a825"><circle cx="250" cy="258" r="6"/><circle cx="270" cy="258" r="6"/><circle cx="260" cy="274" r="6"/></g>
+      <ellipse cx="260" cy="170" rx="14" ry="9" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/>
+      <g class="lead">
+        <path d="M274 170 H366"/><path d="M264 205 H366"/><path d="M288 252 H366"/><path d="M266 278 L366 292"/><path d="M280 298 L366 324"/>
+        <path d="M170 128 L116 100"/><path d="M212 172 L116 160"/><path d="M227 235 L116 230"/><path d="M196 293 L116 325"/>
+      </g>
+      <text x="372" y="174" class="cap">blizna</text>
+      <text x="372" y="209" class="cap">čnelka</text>
+      <text x="372" y="256" class="cap">semenník</text>
+      <text x="372" y="296" class="cap">vajíčko</text>
+      <text x="372" y="328" class="cap">kvetné lôžko</text>
+      <text x="110" y="104" class="cap" text-anchor="end">korunný lístok</text>
+      <text x="110" y="164" class="cap" text-anchor="end">peľnica</text>
+      <text x="110" y="234" class="cap" text-anchor="end">nitka</text>
+      <text x="110" y="329" class="cap" text-anchor="end">kališný lístok</text>
+      <text x="260" y="354" text-anchor="middle" style="font-size:11.5px">tyčinka = nitka + peľnica · piestik = blizna + čnelka + semenník</text>
+    </svg>
+    <figcaption>Pozdĺžny rez obojpohlavným kvetom (zjednodušene, pre prehľadnosť sú zakreslené len dve tyčinky).</figcaption>
+    </figure>
+  </div>
+  <div class="card">
+    <h3>Druhy kvetov</h3>
+    <ul class="tight">
+      <li><b>Obojpohlavný kvet</b> má tyčinky aj piestik (čerešňa, tulipán, jabloň).</li>
+      <li><b>Jednopohlavný kvet</b> má len tyčinky, alebo len piestik (lieska, tekvica, kukurica).</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Opelenie a oplodnenie – dve rôzne veci!</h3>
+    <div class="grid2">
+      <div class="card" style="border-color:#ec407a">
+        <h3>1️⃣ Opelenie</h3>
+        <p>Je to <b>prenos peľu</b> z peľnice na bliznu. Nič sa pri ňom ešte „nespája“. Peľ prenáša <b>hmyz</b> (včela, čmeliak – láka ho farba a vôňa kvetu) alebo <b>vietor</b> (lieska, trávy – kvety sú nenápadné, peľu je veľa).</p>
+      </div>
+      <div class="card" style="border-color:#ec407a">
+        <h3>2️⃣ Oplodnenie</h3>
+        <p>Až potom nasleduje <b>splynutie</b> samčej pohlavnej bunky z peľu s vajíčkovou bunkou vo vajíčku v semenníku. Vajíčko sa tým oplodní a <b>začne sa z neho vyvíjať semeno</b>. <span class="ext">(rozširujúce)</span> Peľové zrno na blizne vyrastie do tenkej <b>peľovej rúrky</b>, ktorá privedie samčiu bunku k vajíčku.</p>
+      </div>
+    </div>
+  </div>
+  <div class="warn"><b>⚠️ Častá chyba:</b> opelenie a oplodnenie nie je to isté. Opelenie = peľ pristane na blizne. Oplodnenie = samčia a samičia bunka splynú v semenníku.</div>
+  <div class="remember">
+    <h3>⭐ Zapamätaj si</h3>
+    <ul>
+      <li>Tyčinka (nitka + peľnica) = <b>samčia časť</b>; piestik (blizna + čnelka + semenník) = <b>samičia časť</b>.</li>
+      <li><b>Opelenie</b> = prenos peľu na bliznu (hmyz, vietor). <b>Oplodnenie</b> = splynutie buniek vo vajíčku.</li>
+      <li>Kvety môžu byť <b>obojpohlavné</b> alebo <b>jednopohlavné</b>.</li>
+    </ul>
+  </div>
+  <div class="life"><b class="t">🍒 Príklad zo života:</b> <b>Čerešňa</b> má obojpohlavné biele kvety. Včely ich opelia, a preto z nich v lete vyrastú čerešne.</div>
+</section>
+
+<!-- ============ 5. PLOD ============ -->
+<section class="part plod" id="plod">
+  <h2>🍎 5. Plod</h2>
+  <div class="card">
+    <h3>Funkcia</h3>
+    <p>Plod <b>chráni semená</b> a pomáha ich <b>rozšíriť</b>. Vzniká po oplodnení: <b>zo semenníka vznikne plod</b> a <b>z vajíčka semeno</b>. Plod teda nie je to isté čo semeno – semeno je <i>vnútri</i> plodu.</p>
+  </div>
+  <div class="card">
+    <h3>Druhy plodov</h3>
+    <div class="tablewrap">
+    <table style="--c:#ef6c00">
+      <tr><th>Skupina</th><th>Druh plodu</th><th>Príklad</th></tr>
+      <tr><td rowspan="4"><b>Suché plody</b><br>(šupka je suchá)</td><td>struk (puká na dva diely)</td><td>hrach, fazuľa</td></tr>
+      <tr><td>tobolka (otvára sa dierkami alebo chlopňami)</td><td>mak</td></tr>
+      <tr><td>orech / nažka (jedno semeno, tvrdý obal)</td><td>lieska, slnečnica</td></tr>
+      <tr><td>obilka (obal zrastený so semenom)</td><td>pšenica, kukurica</td></tr>
+      <tr><td rowspan="3"><b>Mäsité plody</b><br>(šťavnatá dužina)</td><td>kôstkovica (jedna tvrdá kôstka so semenom)</td><td>čerešňa, slivka</td></tr>
+      <tr><td>bobuľa (veľa semien v dužine)</td><td>paradajka, ríbezľa, hrozno</td></tr>
+      <tr><td>malvica (jadrovník s viacerými semenami) <span class="ext">(rozširujúce)</span></td><td>jablko, hruška</td></tr>
+    </table>
+    </div>
+  </div>
+  <div class="remember">
+    <h3>⭐ Zapamätaj si</h3>
+    <ul>
+      <li><b>Semenník → plod</b>, <b>vajíčko → semeno</b>.</li>
+      <li>Plody sú <b>suché</b> alebo <b>mäsité</b>.</li>
+      <li>Plod chráni semená a pomáha ich šíriť.</li>
+    </ul>
+  </div>
+  <div class="life"><b class="t">🍅 Príklad zo života:</b> <b>Paradajka</b> je v botanike plod (bobuľa). Semienka v nej sú semená.</div>
+</section>
+
+<!-- ============ 6. SEMENO ============ -->
+<section class="part semeno" id="semeno">
+  <h2>🌰 6. Semeno</h2>
+  <div class="card">
+    <h3>Funkcia</h3>
+    <p>Semeno obsahuje <b>zárodok novej rastliny</b> a <b>zásoby</b>, z ktorých sa mladá rastlinka živí, kým nemá vlastné korene a listy. Obal semeno chráni pred vysychaním a poškodením.</p>
+  </div>
+  <div class="card">
+    <h3>Stavba a klíčenie</h3>
+    <p>Semeno (napr. fazule) má <b>obal</b>, <b>zárodok</b> (<b>koreňček</b>, <b>stonočka</b>, <b>puk</b> a <b>klíčne listy</b>) a <b>zásobné látky</b> (u fazule sú uložené v hrubých klíčnych listoch).</p>
+    <figure class="big">
+    <svg viewBox="0 0 720 270" role="img" aria-label="Tri schémy: struk hrachu otvorený so semenami, rez semenom fazule s obalom, klíčnymi listami a zárodkom, a tri štádiá klíčenia: napučané semeno, vyrastený koreňček, mladá rastlinka s listami.">
+      <rect width="720" height="270" fill="#fff"/>
+      <text x="115" y="20" text-anchor="middle" class="cap">Plod hrachu</text>
+      <text x="365" y="20" text-anchor="middle" class="cap">Semeno fazule (rez)</text>
+      <text x="610" y="20" text-anchor="middle" class="cap">Klíčenie</text>
+      <!-- struk -->
+      <path d="M20 125 C60 85 170 85 212 125 C170 160 60 160 20 125 Z" fill="#aed581" stroke="#558b2f" stroke-width="2.5"/>
+      <g fill="#7cb342" stroke="#33691e" stroke-width="1.5"><circle cx="70" cy="125" r="14"/><circle cx="104" cy="126" r="14"/><circle cx="138" cy="126" r="14"/><circle cx="172" cy="125" r="14"/></g>
+      <g class="lead"><path d="M60 98 L40 58"/><path d="M104 140 L104 188"/></g>
+      <text x="40" y="52" text-anchor="middle" class="cap">plod (struk)</text>
+      <text x="104" y="204" text-anchor="middle" class="cap">semeno</text>
+      <text x="104" y="219" text-anchor="middle" style="font-size:11px">(hrášok)</text>
+      <!-- fazuľa -->
+      <ellipse cx="365" cy="130" rx="82" ry="54" fill="#d7a86e" stroke="#8d5a2b" stroke-width="2.5"/>
+      <ellipse cx="368" cy="130" rx="72" ry="44" fill="#fff3d6" stroke="#c9a06a"/>
+      <line x1="320" y1="130" x2="438" y2="130" stroke="#c9a06a" stroke-width="1.5"/>
+      <path d="M312 118 Q298 128 302 143 Q315 140 324 128 Z" fill="#ffb74d" stroke="#b45309" stroke-width="1.5"/>
+      <ellipse cx="324" cy="108" rx="7" ry="11" fill="#81c784" stroke="#2e7d32" stroke-width="1.5"/>
+      <g class="lead"><path d="M440 98 L470 62"/><path d="M324 97 L324 62"/><path d="M303 140 L282 188"/><path d="M400 150 L420 196"/></g>
+      <text x="474" y="58" class="cap">obal</text>
+      <text x="324" y="56" text-anchor="middle" class="cap">stonočka</text>
+      <text x="280" y="204" text-anchor="middle" class="cap">koreňček</text>
+      <text x="424" y="212" text-anchor="middle" class="cap">klíčne listy</text>
+      <text x="424" y="227" text-anchor="middle" style="font-size:11px">(zásoba)</text>
+      <!-- klíčenie -->
+      <rect x="500" y="150" width="220" height="100" fill="#e8d5bd"/>
+      <line x1="500" y1="150" x2="720" y2="150" stroke="#8d5a2b" stroke-width="2.5"/>
+      <ellipse cx="528" cy="185" rx="14" ry="9" fill="#d7a86e" stroke="#8d5a2b"/>
+      <ellipse cx="596" cy="180" rx="14" ry="9" fill="#d7a86e" stroke="#8d5a2b"/>
+      <path d="M590 188 Q585 205 580 226" stroke="#c9a06a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="672" cy="176" rx="14" ry="9" fill="#d7a86e" stroke="#8d5a2b"/>
+      <path d="M666 183 Q662 210 654 238 M662 215 L646 226 M660 224 L674 234" stroke="#c9a06a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M674 170 Q678 130 668 100" stroke="#43a047" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="654" cy="98" rx="14" ry="7" transform="rotate(-25 654 98)" fill="#8bc34a" stroke="#33691e"/>
+      <ellipse cx="684" cy="96" rx="14" ry="7" transform="rotate(25 684 96)" fill="#8bc34a" stroke="#33691e"/>
+      <text x="528" y="266" text-anchor="middle" style="font-size:11px">1 napučí</text>
+      <text x="594" y="266" text-anchor="middle" style="font-size:11px">2 koreňček</text>
+      <text x="665" y="266" text-anchor="middle" style="font-size:11px">3 stonka a listy</text>
+    </svg>
+    <figcaption>Plod hrachu so semenami, rez semenom fazule a tri kroky klíčenia.</figcaption>
+    </figure>
+    <p><b>Klíčenie:</b> semeno nasaje vodu a napučí, obal praskne, ako prvý vyrastie <b>koreňček</b> (rastlina sa musí zachytiť a piť), potom stonočka s listami. Potrebuje <b>vodu, vzduch (kyslík) a vhodnú teplotu</b>. Na samotné klíčenie nepotrebuje svetlo, pretože žije zo zásob v semene.</p>
+  </div>
+  <div class="card">
+    <h3>Druhy semien <span class="ext">(rozširujúce)</span></h3>
+    <p>U jednoklíčnolistových rastlín (trávy, obilniny) je zásoba uložená mimo zárodku, nie v klíčnych listoch. Preto sa semená rôznych rastlín stavbou mierne líšia.</p>
+  </div>
+  <div class="card">
+    <h3>Ako sa semená šíria</h3>
+    <ul class="tight">
+      <li><b>vetrom</b> – ľahké alebo okrídlené semená (púpava, javor),</li>
+      <li><b>zvieratami</b> – zachytia sa na srsti (lopúch) alebo ich vtáky zjedia a vylúčia (čerešne, bobule),</li>
+      <li><b>samovoľne</b> – plod „vystrelí“ semená (struk fazule, hrachu pri vysušení).</li>
+    </ul>
+  </div>
+  <div class="remember">
+    <h3>⭐ Zapamätaj si</h3>
+    <ul>
+      <li>Semeno = <b>obal + zárodok + zásoby</b>.</li>
+      <li>Pri klíčení rastie najprv <b>koreňček</b>.</li>
+      <li>Klíčenie vyžaduje <b>vodu, vzduch a teplo</b>.</li>
+    </ul>
+  </div>
+  <div class="life"><b class="t">🫘 Príklad zo života:</b> <b>Fazuľa</b> namočená vo vode napučí, a keď ju dáš do vlhkej vaty, za pár dní vyrastie koreňček.</div>
+</section>
+
+<!-- ============ 7. ROZMNOŽOVANIE ============ -->
+<section class="part rozm" id="rozmnozovanie">
+  <h2>🧬 7. Rozmnožovanie rastlín</h2>
+  <div class="card">
+    <h3>Funkcia</h3>
+    <p>Vďaka rozmnožovaniu vznikajú nové rastliny a druh prežíva. Rastliny sa rozmnožujú dvoma spôsobmi: <b>pohlavne</b> (semenom) a <b>nepohlavne</b> (<b>vegetatívne</b> – časťou tela rastliny).</p>
+  </div>
+  <div class="card">
+    <h3>Pohlavné vs. nepohlavné rozmnožovanie</h3>
+    <div class="tablewrap">
+    <table style="--c:#6a42b8">
+      <tr><th></th><th>Pohlavné (semenom)</th><th>Nepohlavné (vegetatívne)</th></tr>
+      <tr><td><b>Ako</b></td><td>z kvetu → opelenie → oplodnenie → semeno → nová rastlina</td><td>nová rastlina vyrastie z <b>časti</b> materskej rastliny, bez kvetu a semena</td></tr>
+      <tr><td><b>Príklady</b></td><td>fazuľa, slnečnica, jabloň, pšenica</td><td><b>odrezky</b> (muškát, vŕba), <b>podzemky</b> (pýr, konvalinka), <b>hľuzy</b> (zemiak), <b>výbežky</b> (jahoda), <b>odnože / cibuľky</b> (tulipán, cesnak), <b>štepenie</b> (ovocné stromy)</td></tr>
+      <tr><td><b>Výhody</b></td><td>potomkovia sa trochu líšia (lepšie sa prispôsobia zmenám); semená sa dajú šíriť ďaleko a prečkajú nepriaznivé obdobie</td><td>rýchle; nová rastlina je <b>rovnaká</b> ako materská (zachová sa chutné ovocie, farba kvetu); nepotrebuje opeľovanie</td></tr>
+    </table>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Pár slov o štepení</h3>
+    <p>Pri <b>štepení</b> pripojíme vetvičku šľachtenej odrody (štep) na koreň a spodok kmeňa inej rastliny (podpník). Tak získame odolný koreň a rovnaké chutné ovocie ako na materskom strome.</p>
+  </div>
+  <div class="card">
+    <h3>Procesný diagram: od kvetu po novú rastlinu</h3>
+    <figure class="big">
+    <svg viewBox="0 0 760 330" role="img" aria-label="Cyklus pohlavného rozmnožovania: 1 kvet, 2 opelenie, 3 oplodnenie, 4 plod so semenami, 5 rozšírenie semien, 6 klíčenie, 7 nová rastlina, ktorá znova vykvitne.">
+      <defs><marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#37474f"/></marker></defs>
+      <rect width="760" height="330" fill="#fff"/>
+      <g stroke="#37474f" stroke-width="2.5" fill="none" marker-end="url(#ar)">
+        <path d="M170 60 H212"/><path d="M365 60 H407"/><path d="M560 60 H602"/>
+        <path d="M680 92 V237"/>
+        <path d="M602 270 H563"/><path d="M407 270 H368"/>
+        <path d="M212 270 H95 V94"/>
+      </g>
+      <g stroke-width="2" stroke="#37474f">
+        <rect x="20" y="30" width="150" height="60" rx="12" fill="#fbd1e0"/>
+        <rect x="215" y="30" width="150" height="60" rx="12" fill="#fbd1e0"/>
+        <rect x="410" y="30" width="150" height="60" rx="12" fill="#fbd1e0"/>
+        <rect x="605" y="30" width="150" height="60" rx="12" fill="#ffd9a8"/>
+        <rect x="605" y="240" width="150" height="60" rx="12" fill="#ffd9a8"/>
+        <rect x="410" y="240" width="150" height="60" rx="12" fill="#fde9a1"/>
+        <rect x="215" y="240" width="150" height="60" rx="12" fill="#c9e7b0"/>
+      </g>
+      <g text-anchor="middle">
+        <text x="95" y="56" class="cap">1 Kvet</text><text x="95" y="74" style="font-size:11.5px">tyčinky a piestik</text>
+        <text x="290" y="56" class="cap">2 Opelenie</text><text x="290" y="74" style="font-size:11.5px">peľ → blizna</text>
+        <text x="485" y="56" class="cap">3 Oplodnenie</text><text x="485" y="74" style="font-size:11.5px">v semenníku</text>
+        <text x="680" y="52" class="cap" style="font-size:12.5px">4 Plod so semenami</text><text x="680" y="72" style="font-size:11.5px">semenník → plod</text>
+        <text x="680" y="262" class="cap" style="font-size:12.5px">5 Rozšírenie semien</text><text x="680" y="282" style="font-size:11.5px">vietor, zvieratá, samo</text>
+        <text x="485" y="266" class="cap">6 Klíčenie</text><text x="485" y="284" style="font-size:11.5px">voda, vzduch, teplo</text>
+        <text x="290" y="266" class="cap">7 Nová rastlina</text><text x="290" y="284" style="font-size:11.5px">vyrastie a vykvitne</text>
+        <text x="380" y="168" class="cap" style="font-size:14px;fill:#6a42b8">Cyklus pohlavného rozmnožovania</text>
+        <text x="380" y="188" style="font-size:12px;fill:#52606d">vajíčko → semeno · semenník → plod</text>
+      </g>
+    </svg>
+    <figcaption>Postupnosť dejov od kvetu po novú rastlinu.</figcaption>
+    </figure>
+  </div>
+  <div class="remember">
+    <h3>⭐ Zapamätaj si</h3>
+    <ul>
+      <li><b>Pohlavné</b> rozmnožovanie: z kvetu a semena. <b>Nepohlavné</b>: z časti rastliny (odrezok, hľuza, podzemok, výbežok, odnož, štep).</li>
+      <li>Nepohlavne vznikne rastlina s <b>rovnakými vlastnosťami</b> ako materská.</li>
+      <li>Poradie: kvet → opelenie → oplodnenie → plod so semenami → rozšírenie → klíčenie → nová rastlina.</li>
+    </ul>
+  </div>
+  <div class="life"><b class="t">🍓 Príklad zo života:</b> <b>Jahoda</b> vytvára dlhé <b>výbežky</b>, na ktorých vyrastú nové rastlinky. Zároveň má kvety a plody, takže sa rozmnožuje oboma spôsobmi.</div>
+</section>
+
+<!-- ============ SLOVNÍČEK ============ -->
+<div class="card">
+  <h3>📖 Slovníček pojmov</h3>
+  <dl class="gloss">
+    <div><dt>blizna</dt><dd>lepkavá horná časť piestika, zachytáva peľ</dd></div>
+    <div><dt>byľ</dt><dd>mäkká zelená stonka bylín</dd></div>
+    <div><dt>chlorofyl</dt><dd>zelené farbivo v listoch, zachytáva svetlo</dd></div>
+    <div><dt>čepeľ</dt><dd>plochá časť listu</dd></div>
+    <div><dt>čnelka</dt><dd>stopka piestika medzi bliznou a semenníkom</dd></div>
+    <div><dt>drevo</dt><dd>časť stonky, ktorá vedie vodu a soli nahor</dd></div>
+    <div><dt>fotosyntéza</dt><dd>výroba cukru z vody a CO₂ pomocou svetla</dd></div>
+    <div><dt>hľuza</dt><dd>zhrubnutá podzemná stonka so zásobami (zemiak)</dd></div>
+    <div><dt>klíčenie</dt><dd>vyrastanie novej rastlinky zo semena</dd></div>
+    <div><dt>koreňové vlásky</dt><dd>drobné výrastky koreňa, nasávajú vodu a soli</dd></div>
+    <div><dt>koreňová čiapočka</dt><dd>chráni rastúcu špičku koreňa</dd></div>
+    <div><dt>lyko</dt><dd>časť stonky, ktorá vedie cukry z listov nadol</dd></div>
+    <div><dt>nitka</dt><dd>stopka tyčinky, nesie peľnicu</dd></div>
+    <div><dt>oplodnenie</dt><dd>splynutie samčej a vajíčkovej bunky vo vajíčku</dd></div>
+    <div><dt>opelenie</dt><dd>prenos peľu z peľnice na bliznu</dd></div>
+    <div><dt>peľnica</dt><dd>časť tyčinky, v ktorej vzniká peľ</dd></div>
+    <div><dt>piestik</dt><dd>samičia časť kvetu: blizna, čnelka, semenník</dd></div>
+    <div><dt>prieduch</dt><dd>drobný otvor v pokožke listu na výmenu plynov</dd></div>
+    <div><dt>semenník</dt><dd>spodná časť piestika, vznikne z neho plod</dd></div>
+    <div><dt>steblo</dt><dd>dutá stonka s kolienkami (trávy)</dd></div>
+    <div><dt>tyčinka</dt><dd>samčia časť kvetu: nitka a peľnica</dd></div>
+    <div><dt>vajíčko</dt><dd>samičia bunka v semenníku, po oplodnení z neho vznikne semeno</dd></div>
+    <div><dt>zárodok</dt><dd>budúca rastlinka v semene</dd></div>
+  </dl>
+</div>
+
+<!-- ============ OPAKOVANIE ============ -->
+<div class="card">
+  <h3>✏️ Na opakovanie</h3>
+  <p>Odpovedaj do zošita alebo na vyznačené riadky. Správne odpovede nájdeš na poslednej strane.</p>
+  <ol class="q">
+    <li>Napíš <b>dve funkcie koreňa</b> (okrem upevnenia v pôde).<div class="lines"></div></li>
+    <li>Prečo majú korene <b>koreňové vlásky</b>?<div class="lines"></div></li>
+    <li>Doplň: Vodu a soli vedie <span class="line"></span> a cukry vedie <span class="line"></span>.</li>
+    <li>Zapíš fotosyntézu slovami: <span class="line" style="min-width:260px"></span></li>
+    <li>Cez čo prechádzajú plyny do listu a z listu?<div class="lines"></div></li>
+    <li>Z akých dvoch častí sa skladá <b>tyčinka</b> a z akých troch <b>piestik</b>?<div class="lines"></div></li>
+    <li>Vysvetli rozdiel medzi <b>opelením</b> a <b>oplodnením</b>.<div class="lines"></div></li>
+    <li>Doplň: Zo semenníka vzniká <span class="line"></span> a z vajíčka <span class="line"></span>.</li>
+    <li>Vymenuj tri podmienky klíčenia semena.<div class="lines"></div></li>
+    <li>Uveď jeden spôsob nepohlavného rozmnožovania s príkladom a jednu jeho výhodu.<div class="lines"></div></li>
+  </ol>
+</div>
+
+<div class="card answers pbreak">
+  <h3>✅ Správne odpovede (pre rodiča / na kontrolu)</h3>
+  <ol class="q">
+    <li>Príjem vody a rozpustených solí z pôdy; ukladanie zásob (napr. mrkva).</li>
+    <li>Zväčšujú povrch koreňa, takže prijme viac vody a solí.</li>
+    <li>Vodu a soli vedie <b>drevo</b> (nahor), cukry vedie <b>lyko</b> (nadol).</li>
+    <li>Voda + oxid uhličitý + svetlo → cukor + kyslík.</li>
+    <li>Cez <b>prieduchy</b> (hlavne na spodnej strane listu).</li>
+    <li>Tyčinka: <b>nitka + peľnica</b>. Piestik: <b>blizna + čnelka + semenník</b>.</li>
+    <li>Opelenie = prenos peľu z peľnice na bliznu. Oplodnenie = splynutie samčej bunky s vajíčkovou bunkou vo vajíčku v semenníku.</li>
+    <li>Zo semenníka vzniká <b>plod</b>, z vajíčka <b>semeno</b>.</li>
+    <li>Voda, vzduch (kyslík), vhodná teplota.</li>
+    <li>Napr. odrezky (muškát), hľuzy (zemiak), výbežky (jahoda), podzemky, odnože/cibuľky, štepenie. Výhoda: rýchlo vznikne rastlina rovnakých vlastností ako materská.</li>
+  </ol>
+</div>
+
+<footer>Obsah vychádza zo Štátneho vzdelávacieho programu pre 6. ročník ZŠ a bol napísaný vlastnými slovami, nie podľa konkrétnej učebnice. Všetky obrázky sú vlastné kresby (SVG), žiadne externé obrázky.</footer>
+
+</main>
+</body>
+</html>
