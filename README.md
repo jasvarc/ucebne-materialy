@@ -1,2 +1,2 @@
 # ucebne-materialy
-staticke ucebne materialy vhdne na online studium resp tlacenie
+Statické učebné materiály vhodné na online štúdium resp. tlačenie...
