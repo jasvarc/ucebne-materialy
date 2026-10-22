@@ -30,6 +30,33 @@ PAGE_TITLE = "Učebné materiály"
 PAGE_SUB = "Výťahy z učiva – prehliadateľné na mobile, tablete aj počítači, vytlačiteľné na A4."
 ANIMACIE_URL = "https://jasvarc.github.io/animacie/"
 
+# Dobrovoľná podpora (Ko-fi), rovnaký box ako v animáciách – len na úvodnej stránke
+SUPPORT_TEXT = "Robím to hlavne pre deti, ale môžete ma podporiť dobrovoľnou „kávou“ ☕"
+SUPPORT_BTN = "☕ Podporiť kávou"
+# Okno s platobným formulárom (Ko-fi embed). Ko-fi sa načíta až po kliknutí na tlačidlo.
+KOFI_PAGE = "https://ko-fi.com/jasvarc"
+KOFI_EMBED = "https://ko-fi.com/jasvarc/?hidefeed=true&widget=true&embed=true"
+SUPPORT_JS = """  <script>
+  (function () {
+    var dlg = document.getElementById('kofi-dialog');
+    var btn = document.getElementById('kofi-open');
+    var frame = document.getElementById('kofi-frame');
+    if (!dlg || !btn || !frame) return;
+    if (typeof dlg.showModal !== 'function') {   // starý prehliadač: otvor Ko-fi v novej karte
+      btn.addEventListener('click', function () {
+        window.open(btn.getAttribute('data-page'), '_blank', 'noopener');
+      });
+      return;
+    }
+    btn.addEventListener('click', function () {
+      if (!frame.getAttribute('src')) frame.setAttribute('src', frame.getAttribute('data-src'));
+      dlg.showModal();
+    });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.querySelector('.kofi-close').addEventListener('click', function () { dlg.close(); });
+  })();
+  </script>"""
+
 # kľúč = názov priečinka oblasti (malými písmenami) -> zobrazovaný názov
 # Čo tu nie je, dostane názov priečinka s veľkým prvým písmenom.
 SUBJECTS = {
@@ -141,11 +168,29 @@ def doc(title, depth, heading, sub, summary, body, crumb=None, oblast=None):
     sub_html = f'<p class="sub">{html.escape(sub)}</p>' if sub else ""
     foot = ""
     logo_html = ""
+    aside_html = ""
+    dialog_html = ""
     if depth == 0:
         foot = (f'    <p class="pata">Interaktívne animácie nájdeš na '
                 f'<a href="{ANIMACIE_URL}">jasvarc.github.io/animacie</a>.</p>\n')
         logo_html = (f'      <img class="logo" src="logo.png" width="96" height="96" '
                      f'alt="Logo – učebné materiály, jasvarc.github.io/ucebne-materialy">\n')
+        aside_html = (f'      <aside class="support card">\n'
+                      f'        <p>{html.escape(SUPPORT_TEXT)}</p>\n'
+                      f'        <button type="button" class="support-btn" id="kofi-open" aria-haspopup="dialog" '
+                      f'data-page="{html.escape(KOFI_PAGE)}">{html.escape(SUPPORT_BTN)}</button>\n'
+                      f'      </aside>\n')
+        dialog_html = (f'  <dialog class="kofi" id="kofi-dialog" aria-label="Podporiť kávou">\n'
+                       f'    <div class="kofi-box">\n'
+                       f'      <div class="kofi-bar">\n'
+                       f'        <span>Nezobrazuje sa formulár? <a href="{html.escape(KOFI_PAGE)}" target="_blank" '
+                       f'rel="noopener">Otvoriť na Ko-fi</a></span>\n'
+                       f'        <button type="button" class="kofi-close" aria-label="Zavrieť">×</button>\n'
+                       f'      </div>\n'
+                       f'      <iframe id="kofi-frame" title="Podporiť kávou – Ko-fi" allow="payment" '
+                       f'data-src="{html.escape(KOFI_EMBED)}" loading="lazy"></iframe>\n'
+                       f'    </div>\n'
+                       f'  </dialog>\n{SUPPORT_JS}\n')
     icon = "../" * depth + "logo.png"
     return f"""<!DOCTYPE html>
 {MARK}
@@ -160,16 +205,18 @@ def doc(title, depth, heading, sub, summary, body, crumb=None, oblast=None):
 </head>
 <body class="rozcestnik"{attr}>
   <div class="wrap">
-{crumb_html}    <header class="hero card">
-{logo_html}      <div>
-        <h1>{html.escape(heading)}</h1>
-        {sub_html}
-        <p class="sum">{summary}</p>
-      </div>
-    </header>
+{crumb_html}    <div class="hero">
+      <header class="top card">
+{logo_html}        <div>
+          <h1>{html.escape(heading)}</h1>
+          {sub_html}
+          <p class="sum">{summary}</p>
+        </div>
+      </header>
+{aside_html}    </div>
 {body}
 {foot}  </div>
-</body>
+{dialog_html}</body>
 </html>
 """
 

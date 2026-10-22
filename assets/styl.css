@@ -214,7 +214,84 @@ figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.3em; }
   -webkit-backdrop-filter: blur(10px);
 }
 
-.hero { margin: 8px 0 28px; padding: 18px 20px; justify-content: flex-start; gap: 18px; }
+.hero { display: flex; gap: 12px; align-items: stretch; margin: 8px 0 28px; }
+
+header.top { flex: 1 1 auto; padding: 18px 20px; justify-content: flex-start; gap: 18px; }
+
+/* rámček s podporou kávou (Ko-fi), rovnaký ako v animáciách */
+.support {
+  flex: 0 0 270px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 18px;
+}
+
+.support p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+
+.support-btn {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold2);
+  transition: background 0.15s, color 0.15s;
+}
+
+.support-btn:hover,
+.support-btn:focus-visible { background: var(--gold); color: #04060c; }
+.support-btn:focus-visible { outline: 3px solid var(--gold2); outline-offset: 2px; }
+
+dialog.kofi {
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #0c101c;
+  color: var(--text);
+  width: min(360px, calc(100vw - 24px));
+  max-height: calc(100vh - 24px);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+dialog.kofi::backdrop { background: rgba(4, 6, 12, 0.72); }
+
+.kofi-box { padding: 10px 12px 12px; }
+.kofi-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 0 0 8px; }
+.kofi-bar span { font-size: 13px; color: var(--muted); }
+.kofi-bar span a { color: var(--gold2); }
+
+.kofi-close {
+  font: inherit;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+}
+
+.kofi-close:hover,
+.kofi-close:focus-visible { border-color: var(--gold); color: var(--gold2); }
+
+#kofi-frame {
+  display: block;
+  width: 100%;
+  height: min(690px, calc(100vh - 110px));
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+}
+
+@media (max-width: 760px) { .hero { flex-direction: column; } .support { flex-basis: auto; } }
 
 .logo {
   width: 96px;
