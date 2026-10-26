@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Živočíchy prospešné pre človeka</title>
+<link rel="icon" href="../../../logo.png">
+<link rel="stylesheet" href="../../../assets/styl.css">
+<style>
+/* doplnky k spoločnému štýlu: farby kapitol, fotky, schémy, slovníček */
+.kap{--acc:var(--sc);border-left:5px solid var(--sc);padding-left:14px;margin:1.8em 0}
+.kap>h2{color:var(--sc);border-bottom-color:var(--sc)}
+#k1{--sc:#b9a3ff;--scp:#5e35b1}
+#k2{--sc:#ffa94d;--scp:#e65100}
+#k3{--sc:#e0a36a;--scp:#8d5a2b}
+#k4{--sc:#ffd166;--scp:#a67c00}
+#k7{--sc:#f48fb1;--scp:#c2185b}
+.box.zlty{--c:var(--gold)}
+.box.ja{--c:var(--green)}
+.box ul{margin:.2em 0}
+.ext{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.02em;color:var(--gold2);border:1px solid currentColor;border-radius:999px;padding:0 .5em;vertical-align:.1em;white-space:nowrap}
+.obsah{columns:2;column-gap:24px;margin:.4em 0 0}
+.obsah li{break-inside:avoid}
+.fotky{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:1em 0}
+.foto{margin:0;background:#fff;color:#1f2933;border-radius:10px;padding:6px;text-align:left}
+.foto img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:6px}
+.foto figcaption{color:#3d4852;font-size:.76rem;line-height:1.35;margin-top:.35em}
+.foto figcaption b{color:#111}
+.foto a{color:#1f5fa8}
+.chyba-obr{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;border:2px dashed #9aa5b1;border-radius:6px;padding:10px;text-align:center;color:#3d4852;font-size:.85rem;background:#f7f9fb}
+.schema svg{display:block;width:100%;height:auto;background:#fff;border-radius:10px}
+.schema figcaption{text-align:left}
+svg text{font-family:system-ui,"Segoe UI",Roboto,Arial,sans-serif;font-size:13px;fill:#1f2933}
+svg .t{font-weight:700}
+svg .s{font-size:11.5px;fill:#3d4852}
+svg .h{font-weight:700;font-size:14px}
+svg .lead{stroke:#52606d;stroke-width:1.2;fill:none}
+svg .sip{stroke:#37474f;stroke-width:2.5;fill:none}
+svg .sipka{fill:#37474f}
+dl.gloss{columns:2;column-gap:22px;margin:0}
+dl.gloss div{break-inside:avoid;margin:0 0 6px}
+dl.gloss dt{font-weight:700;color:var(--acc)}
+dl.gloss dd{margin:0}
+.line{display:inline-block;border-bottom:1.5px solid currentColor;min-width:110px}
+.zdroje{font-size:.85rem;overflow-wrap:anywhere}
+.zdroje li{margin:.35em 0}
+@media (max-width:640px){
+  .obsah,dl.gloss{columns:1}
+  .schema{overflow-x:auto}
+  .schema svg{min-width:600px}
+}
+@media print{
+  /* tlač: biely papier, čierny text; farba len v tenkých okrajoch a výplniach schém */
+  .kap{--acc:var(--scp);border-left:3px solid var(--scp);padding-left:10px;margin:.9em 0}
+  .kap>h2{color:var(--text);border-bottom:2px solid var(--scp)}
+  body{font-size:9.5pt;line-height:1.35;color:#000}
+  article.vytah{color:#000}
+  article.vytah h1{font-size:17pt}
+  article.vytah h2{font-size:12.5pt;margin:.9em 0 .4em}
+  article.vytah h3{font-size:10.5pt;margin:.6em 0 .25em}
+  p{margin:.3em 0} li{margin:.1em 0} ul,ol{margin:.3em 0}
+  .box{background:#fff !important;border:1px solid #c5cddd;border-left:4px solid var(--c);margin:.45em 0;padding:.35em .7em;border-radius:0}
+  .box.zlty{border-left-color:#a67c00}
+  .box.pozor{border-left-color:#c62828}
+  .box.ja,.box.ok{border-left-color:#2e7d32}
+  .box-nazov{color:#000}
+  th{background:#eef0f3 !important}
+  th,td{padding:3px 6px;border-color:#9aa5b1}
+  table{font-size:8.8pt;margin:.4em 0}
+  .ext{color:#000;border-color:#666}
+  .fotky{grid-template-columns:repeat(4,1fr);gap:6px;margin:.5em 0}
+  .foto{border:1px solid #c5cddd;border-radius:4px;padding:3px}
+  .foto img{aspect-ratio:3/2}
+  .foto figcaption{font-size:7pt;color:#222}
+  .foto a{color:#000}
+  .chyba-obr{aspect-ratio:3/2;font-size:8pt}
+  .schema{margin:.45em 0}
+  .schema svg{max-height:68mm;width:auto;max-width:100%;margin:0 auto;border:1px solid #c5cddd;border-radius:0}
+  .schema figcaption{font-size:8pt;color:#222}
+  /* dlhé tabuľky sa smú lámať medzi riadkami, nie vnútri riadka */
+  table,.fotky{break-inside:auto}
+  tr:first-child{break-after:avoid}
+  .foto,.schema,.box,tr{break-inside:avoid}
+  dl.gloss{font-size:8.8pt}
+  dl.gloss div{margin:0 0 3px}
+  dl.gloss dt{color:#000}
+  .ulohy>li{margin:.5em 0}
+  .riadok{height:1.5em}
+  .zdroje{font-size:7.5pt}
+  .pata{margin-top:1em;color:#222}
+}
+</style>
+</head>
+<body data-oblast="biologia">
+<div class="sheet">
+
+<div class="toolbar noprint">
+  <a href="../">← Späť na zoznam</a>
+  <button type="button" onclick="window.print()">Vytlačiť</button>
+</div>
+
+<article class="vytah">
+
+<h1>🐝 Živočíchy prospešné pre človeka</h1>
+<p class="meta">Biológia · 6. ročník ZŠ · Obsah vychádza zo Štátneho vzdelávacieho programu (ŠVP) pre 6. ročník ZŠ, nie z konkrétnej učebnice, takže ho môžete porovnať s učebnicou, z ktorej sa vaše dieťa učí.</p>
+
+<div class="box">
+  <span class="box-nazov">Čo sa naučíš</span>
+  <p>Zistíš, ako nám živočíchy pomáhajú: dávajú potravu a suroviny, pracujú s nami, opeľujú rastliny a robia nám spoločnosť. Pochopíš aj to, ako sa z divých zvierat stali domáce a prečo sa o zvieratá treba starať ohľaduplne.</p>
+</div>
+
+<p><b>Kapitoly:</b></p>
+<ol class="obsah">
+  <li><a href="#k1">Kto je „prospešný“ a domestikácia</a></li>
+  <li><a href="#k2">Hospodárske zvieratá</a></li>
+  <li><a href="#k3">Pracovné zvieratá</a></li>
+  <li><a href="#k4">Včely a iný hmyz</a></li>
+  <li><a href="#k7">Spoločníci a zvieratá v domácnosti</a></li>
+</ol>
+
+<!-- ============ 1. ÚVOD ============ -->
+<section class="kap" id="k1">
+<h2>🧭 1. Kto je „prospešný“ pre človeka</h2>
+<p>Živočích je <b>prospešný (užitočný) pre človeka</b>, keď nám nejakým spôsobom pomáha. Môže to byť päť rôznych spôsobov:</p>
+<ul>
+  <li>dáva nám <b>potravu a suroviny</b> (mlieko, mäso, vajcia, vlnu, kožu, med),</li>
+  <li><b>pomáha pri práci</b> (kôň ťahá, pes stráži alebo hľadá),</li>
+  <li><b>chráni prírodu a plodiny</b>, napríklad tým, že loví škodcov,</li>
+  <li><b>opeľuje rastliny</b>, takže dorastie ovocie a zelenina,</li>
+  <li>je <b>spoločníkom</b> (robí nám radosť, pomáha pri liečbe).</li>
+</ul>
+
+<figure class="schema">
+<svg viewBox="0 0 600 300" role="img" aria-label="Schéma rozdelenia živočíchov podľa využitia. Hore: Živočíchy prospešné pre človeka. Pod tým tri skupiny: hospodárske (úžitkové) zvieratá, napríklad krava, ošípaná, ovca, koza, hydina, králik, kapor, dávajú potravu a suroviny; pracovné zvieratá, napríklad kôň, pes, somár, ťava, sob, pomáhajú pri práci; spoločníci, napríklad pes, mačka, morča, škrečok, akváriové ryby, robia radosť a pomáhajú pri terapii.">
+  <rect x="150" y="10" width="300" height="44" rx="10" fill="#ede7ff" stroke="#5e35b1" stroke-width="2"/>
+  <text x="300" y="38" text-anchor="middle" class="h">Živočíchy prospešné pre človeka</text>
+  <g stroke="#52606d" stroke-width="2" fill="none">
+    <line x1="300" y1="54" x2="300" y2="78"/><line x1="105" y1="78" x2="495" y2="78"/>
+    <line x1="105" y1="78" x2="105" y2="100"/><line x1="300" y1="78" x2="300" y2="100"/><line x1="495" y1="78" x2="495" y2="100"/>
+  </g>
+  <rect x="20" y="100" width="170" height="190" rx="10" fill="#fff0e0" stroke="#e65100" stroke-width="2"/>
+  <rect x="215" y="100" width="170" height="190" rx="10" fill="#f6e9dc" stroke="#8d5a2b" stroke-width="2"/>
+  <rect x="410" y="100" width="170" height="190" rx="10" fill="#fde4ee" stroke="#c2185b" stroke-width="2"/>
+  <g text-anchor="middle">
+    <text x="105" y="132" style="font-size:24px">🐄</text>
+    <text x="105" y="158" class="t">Hospodárske</text><text x="105" y="174" class="s">(úžitkové)</text>
+    <text x="105" y="200" class="s">krava, ošípaná,</text><text x="105" y="216" class="s">ovca, koza, hydina,</text><text x="105" y="232" class="s">králik, kapor</text>
+    <text x="105" y="260" class="t" style="fill:#e65100">→ potrava</text><text x="105" y="276" class="t" style="fill:#e65100">a suroviny</text>
+
+    <text x="300" y="132" style="font-size:24px">🐴</text>
+    <text x="300" y="158" class="t">Pracovné</text>
+    <text x="300" y="200" class="s">kôň, pes,</text><text x="300" y="216" class="s">somár, ťava,</text><text x="300" y="232" class="s">sob</text>
+    <text x="300" y="260" class="t" style="fill:#8d5a2b">→ pomoc</text><text x="300" y="276" class="t" style="fill:#8d5a2b">pri práci</text>
+
+    <text x="495" y="132" style="font-size:24px">🐾</text>
+    <text x="495" y="158" class="t">Spoločníci</text>
+    <text x="495" y="200" class="s">pes, mačka,</text><text x="495" y="216" class="s">morča, škrečok,</text><text x="495" y="232" class="s">akváriové ryby</text>
+    <text x="495" y="260" class="t" style="fill:#c2185b">→ radosť,</text><text x="495" y="276" class="t" style="fill:#c2185b">terapia</text>
+  </g>
+</svg>
+<figcaption>Rozdelenie živočíchov podľa toho, ako ich človek využíva. Jeden živočích môže patriť do viacerých skupín – napríklad pes je pracovník aj spoločník.</figcaption>
+</figure>
+
+<div class="box pozor">
+  <span class="box-nazov">Pozor: „prospešný“ a „škodlivý“ nie je navždy</span>
+  <p>To, či je živočích pre nás prospešný alebo škodlivý, závisí od <b>situácie a množstva</b>. <b>Voška</b> škodí ruži alebo fazuli, no je potravou pre lienky a vtáky. <b>Hraboš</b> patrí do prírody, ale keď sa premnoží, zničí úrodu na poli. <b>Líška</b> loví hraboše (pomáha), no niekedy si vezme aj sliepku z dvora. V prírode nie sú „zlé“ a „dobré“ zvieratá – každé má svoje miesto.</p>
+</div>
+
+<h3>Domestikácia – ako sa z divého zvieraťa stalo domáce</h3>
+<p><b>Domestikácia</b> (zdomácnenie) je dlhá premena divého druhu na <b>domáce zviera</b>, ktoré žije s človekom a je od neho závislé. Netrvala jeden život, ale <b>tisíce rokov</b> a mnoho generácií zvierat.</p>
+<p><b>Ako to prebiehalo?</b> Ľudia si nechávali a rozmnožovali tie zvieratá, ktoré boli <b>krotšie a pokojnejšie</b>, menej sa báli, lepšie rástli, dávali <b>viac mlieka, mäsa či vlny</b> alebo lepšie strážili. Mláďatá po nich tieto vlastnosti zdedili. Tak postupne vznikli <b>plemená</b> – skupiny zvierat toho istého druhu s podobnými vlastnosťami (napríklad dojné plemená kráv).</p>
+<p><b>Prečo to človek robil?</b> Domáce zvieratá mu dávali potravu a suroviny stále a blízko domu, nemusel ich zakaždým uloviť. Pomáhali mu aj pri práci a pri strážení.</p>
+
+<figure class="schema">
+<svg viewBox="0 0 680 270" role="img" aria-label="Schéma domestikácie: vľavo divý predok, vpravo domáce zviera, medzi nimi šípka – tisíce rokov výberu. Vlk sa zmenil na psa, diviak na ošípanú, kur bankivský z juhovýchodnej Ázie na sliepku domácu a vyhynutý pratur na hovädzí dobytok (rozširujúce).">
+  <g text-anchor="middle">
+    <text x="115" y="22" class="t">DIVÝ PREDOK</text>
+    <text x="340" y="22" class="s">tisíce rokov výberu</text>
+    <text x="565" y="22" class="t">DOMÁCE ZVIERA</text>
+  </g>
+  <g stroke-width="2">
+    <rect x="10" y="34" width="210" height="48" rx="8" fill="#eef2f7" stroke="#607d8b"/>
+    <rect x="10" y="92" width="210" height="48" rx="8" fill="#eef2f7" stroke="#607d8b"/>
+    <rect x="10" y="150" width="210" height="48" rx="8" fill="#eef2f7" stroke="#607d8b"/>
+    <rect x="10" y="208" width="210" height="48" rx="8" fill="#eef2f7" stroke="#607d8b" stroke-dasharray="6 4"/>
+    <rect x="460" y="34" width="210" height="48" rx="8" fill="#fff0e0" stroke="#e65100"/>
+    <rect x="460" y="92" width="210" height="48" rx="8" fill="#fff0e0" stroke="#e65100"/>
+    <rect x="460" y="150" width="210" height="48" rx="8" fill="#fff0e0" stroke="#e65100"/>
+    <rect x="460" y="208" width="210" height="48" rx="8" fill="#fff0e0" stroke="#e65100" stroke-dasharray="6 4"/>
+  </g>
+  <g class="sip">
+    <line x1="226" y1="58" x2="446" y2="58"/><line x1="226" y1="116" x2="446" y2="116"/><line x1="226" y1="174" x2="446" y2="174"/><line x1="226" y1="232" x2="446" y2="232"/>
+  </g>
+  <g class="sipka">
+    <polygon points="456,58 444,52 444,64"/><polygon points="456,116 444,110 444,122"/><polygon points="456,174 444,168 444,180"/><polygon points="456,232 444,226 444,238"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="115" y="56" class="t">vlk</text><text x="115" y="73" class="s">šelma, žije vo svorke</text>
+    <text x="115" y="114" class="t">diviak</text><text x="115" y="131" class="s">žije v lese</text>
+    <text x="115" y="172" class="t">kur bankivský</text><text x="115" y="189" class="s">divá kura z juhovýchodnej Ázie</text>
+    <text x="115" y="230" class="t">pratur (tur divý)</text><text x="115" y="247" class="s">už vyhynul · rozširujúce</text>
+    <text x="565" y="56" class="t">pes</text><text x="565" y="73" class="s">stráži, pasie, hľadá, je spoločník</text>
+    <text x="565" y="114" class="t">ošípaná</text><text x="565" y="131" class="s">mäso, tuk, koža</text>
+    <text x="565" y="172" class="t">sliepka domáca</text><text x="565" y="189" class="s">vajcia, mäso, perie</text>
+    <text x="565" y="230" class="t">hovädzí dobytok</text><text x="565" y="247" class="s">mlieko, mäso, koža</text>
+    <text x="340" y="51" class="s">krotšie, učenlivé jedince</text>
+    <text x="340" y="109" class="s">pokojnejšie, rýchlo rastúce</text>
+    <text x="340" y="167" class="s">viac vajec, krotšie</text>
+    <text x="340" y="225" class="s">pokojnejšie, viac mlieka</text>
+  </g>
+</svg>
+<figcaption>Z divých predkov sa výberom najvhodnejších jedincov postupne stali domáce zvieratá.</figcaption>
+</figure>
+
+<p><b>Pes</b> je pravdepodobne <b>najstaršie domáce zviera</b> – žil s človekom už v čase, keď ľudia ešte nepestovali plodiny, ale lovili a zbierali potravu.</p>
+
+<div class="box pozor">
+  <span class="box-nazov">Pozor: domáce zviera nie je to isté ako zviera v byte</span>
+  <p><b>Domáce zviera</b> je <b>domestikované</b> – krava, ošípaná aj sliepka sú domáce zvieratá, hoci v byte nežijú. Naopak <b>korytnačka v teráriu</b> alebo exotický papagáj žijú v domácnosti, ale domestikované nie sú – sú to divé druhy, ktoré človek chová v zajatí.</p>
+</div>
+
+<div class="box zlty">
+  <span class="box-nazov">⭐ Zapamätaj si</span>
+  <ul>
+    <li>Živočíchy nám dávajú potravu a suroviny, pomáhajú pri práci, chránia úrodu, opeľujú rastliny a sú nám spoločníkmi.</li>
+    <li><b>Domestikácia</b> = premena divého zvieraťa na domáce výberom krotších a úžitkovejších jedincov počas tisícov rokov (vlk → pes, diviak → ošípaná).</li>
+    <li>„Prospešný“ a „škodlivý“ závisí od situácie a množstva.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ 2. HOSPODÁRSKE ============ -->
+<section class="kap" id="k2">
+<h2>🐄 2. Hospodárske zvieratá a ich úžitok</h2>
+<p><b>Hospodárske (úžitkové) zvieratá</b> chová človek kvôli úžitku – teda pre potravu a suroviny. <b>Úžitkovosť</b> znamená, koľko a čoho zviera dáva, napríklad koľko mlieka, vajec alebo vlny. Chovajú sa na farmách, na dvoroch a pasú sa na pasienkoch. Pri každej skupine je v tabuľke aj veta 🤝 o tom, čo zviera potrebuje, aby sa mu u nás dobre žilo.</p>
+
+<div class="tabulka-obal"><table>
+<tr><th>Zviera</th><th>Čo od neho získavame</th><th>Čo vedieť</th></tr>
+<tr><td><b>🐄 Hovädzí dobytok</b><br>krava, býk, teľa</td><td><b>mlieko</b> a z neho syr, maslo, tvaroh, jogurt, smotana; <b>mäso</b> (hovädzie, teľacie); <b>koža</b> (obuv, opasky); hnoj ako hnojivo</td><td>Krava dáva mlieko, až keď porodí teľa. Kedysi <b>voly</b> ťahali pluhy a vozy. Je to <b>prežúvavec</b> – trávu prehltne, neskôr ju vráti do úst a prežúva znova.<br>🤝 Potrebuje pastvu alebo seno, čistú vodu a suchú, čistú maštaľ.</td></tr>
+<tr><td><b>🐖 Ošípaná</b><br>prasnica, kanec, prasiatko</td><td><b>mäso</b> (bravčové), <b>tuk</b> (masť, slanina), <b>koža</b></td><td>Predkom je diviak. Je to inteligentný <b>všežravec</b>. V blate sa váľa, aby sa ochladila a chránila kožu.<br>🤝 Potrebuje dosť miesta, podstielku a možnosť rýpať.</td></tr>
+<tr><td><b>🐑 Ovca</b><br>ovca (bahnica), baran, jahňa</td><td><b>vlna</b>; <b>mlieko</b> a z neho bryndza, oštiepok, žinčica; <b>mäso</b>; <b>koža</b></td><td>Chov oviec na salašoch má na Slovensku dlhú tradíciu. Strihanie vlny ovcu nebolí, je ako strihanie vlasov.<br>🤝 Potrebuje pastvu, prístrešok pred nepohodou a pravidelné strihanie.</td></tr>
+<tr><td><b>🐐 Koza</b><br>koza, cap, kozľa</td><td><b>mlieko</b> a syry, <b>mäso</b>, <b>koža</b>, <b>srsť</b> (z niektorých plemien jemná vlna – kašmír, mohér <span class="ext">rozširujúce</span>)</td><td>Je nenáročná, spása aj listy kríkov a dobre lezie po skalách.<br>🤝 Potrebuje suchý prístrešok, pohyb a starostlivosť o paznechty.</td></tr>
+<tr><td><b>🐔 Sliepka</b><br>sliepka, kohút, kuriatko</td><td><b>vajcia</b>, <b>mäso</b>, perie</td><td>Sliepka znáša vajcia aj bez kohúta, len sa z nich nevyliahnu kuriatka.<br>🤝 Potrebuje výbeh, bidielko na spanie a hniezdo na znášanie.</td></tr>
+<tr><td><b>🦆 Kačica a hus</b></td><td><b>mäso</b>, <b>vajcia</b>, <b>perie a páperie</b> (periny, vankúše, bundy)</td><td>Patria k vodnej hydine, majú medzi prstami plávacie blany.<br>🤝 Potrebujú výbeh a vodu na kúpanie.</td></tr>
+<tr><td><b>🦃 Moriak</b><br>moriak, morka</td><td><b>mäso</b></td><td>Pôvodne pochádza zo Severnej Ameriky.<br>🤝 Potrebuje priestorný výbeh a prístrešok.</td></tr>
+<tr><td><b>🐇 Králik</b></td><td><b>mäso</b>, <b>kožušina</b></td><td>Rýchlo sa rozmnožuje. Z angorského králika sa získava jemná vlna <span class="ext">rozširujúce</span>.<br>🤝 Potrebuje priestorný kotec, seno a pohyb, nie malú tmavú klietku.</td></tr>
+<tr><td><b>🐟 Ryby</b><br>kapor, pstruh</td><td><b>mäso</b></td><td><b>Kapor</b> sa chová v teplejších <b>rybníkoch</b>, <b>pstruh</b> potrebuje studenú, čistú tečúcu vodu.<br>🤝 Potrebujú čistú vodu s dostatkom kyslíka.</td></tr>
+</table></div>
+
+<div class="fotky">
+  <figure class="foto"><img src="obrazky/krava.jpg" width="960" height="643" alt="Hnedobiela strakatá krava leží na zelenej horskej lúke plnej kvetov, na krku má zvonec."><figcaption><b>Krava</b> strakatého plemena na horskej pastvine. Foto: Kim Hansen, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.sk">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/wiki/File:Cow_(Fleckvieh_breed)_Oeschinensee_Slaunger_2009-07-07.jpg">Wikimedia Commons</a></figcaption></figure>
+  <figure class="foto"><img src="obrazky/osipana.jpg" width="960" height="640" alt="Svetloružová ošípaná stojí v kopáči hlinitej pôdy vo výbehu s dreveným plotom."><figcaption><b>Ošípaná</b> vo výbehu – rada rýpe v zemi. Foto: Gzen92, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.sk">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/wiki/File:Cochon_domestique_(Sus_scrofa_domesticus)_(2).jpg">Wikimedia Commons</a></figcaption></figure>
+  <figure class="foto"><img src="obrazky/ovca.jpg" width="960" height="960" alt="Hlava a krk ovce s hustou kučeravou bielou vlnou a dlhými klopnými ušami, na krku má zvonec."><figcaption><b>Ovca</b> s hustou vlnou. Foto: Basotxerri, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.sk">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/wiki/File:Stubai_-_Tiroler_Bergschaf_-BT-_01.jpg">Wikimedia Commons</a></figcaption></figure>
+  <figure class="foto"><img src="obrazky/koza.jpg" width="960" height="598" alt="Hnedočierna koza s rohmi a bradou stojí na pastvine, v pozadí sú hory a modrá obloha."><figcaption><b>Koza</b> s rohmi a bradou. Foto: Wilfredor, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.sk">CC0</a>, <a href="https://commons.wikimedia.org/wiki/File:Capra_aegagrus_hircus_in_isla_Margarita.jpg">Wikimedia Commons</a></figcaption></figure>
+  <figure class="foto"><img src="obrazky/sliepka.jpg" width="960" height="640" alt="Detail hlavy hnedej sliepky s červeným hrebienkom a lalokmi."><figcaption><b>Sliepka</b> – červený hrebienok a laloky. Foto: Thegreenj, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.sk">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/wiki/File:Hen_chicken.jpg">Wikimedia Commons</a></figcaption></figure>
+  <figure class="foto"><div class="chyba-obr">Sem patrí obrázok: živý kapor obyčajný vo vode alebo kaprový rybník (návrh zdroja je v časti Zdroje obrázkov).</div><figcaption><b>Kapor</b> – obrázok treba doplniť.</figcaption></figure>
+</div>
+
+<h3>Rybníky <span class="ext">rozširujúce</span></h3>
+<p><b>Rybník</b> je umelo vybudovaná vodná nádrž, v ktorej sa chovajú ryby, na Slovensku najmä <b>kapor</b>. Na jeseň sa z rybníka vypustí voda a ryby sa vylovia (<b>výlov</b>). Rybníky sú zároveň domovom vodných vtákov, žiab a vážok a zadržiavajú vodu v krajine.</p>
+
+<div class="box pozor">
+  <span class="box-nazov">Pozor: krava nie je len „mäso“</span>
+  <p>Hovädzí dobytok nám dáva oveľa viac než mäso: <b>mlieko</b> a desiatky výrobkov z neho, <b>kožu</b>, hnoj na pole a kedysi aj <b>ťažnú silu</b>. Podobne ovca nie je len vlna – z jej mlieka je bryndza.</p>
+</div>
+
+<div class="box zlty">
+  <span class="box-nazov">⭐ Zapamätaj si</span>
+  <ul>
+    <li>Hospodárske zvieratá: <b>hovädzí dobytok, ošípané, ovce, kozy, hydina, králiky, ryby</b>.</li>
+    <li>Dávajú <b>mlieko, mäso, vajcia, vlnu, kožu, perie</b> a mnoho výrobkov z nich.</li>
+    <li>Zviera, o ktoré sa dobre staráme (miesto, voda, potrava, zdravie), je spokojnejšie a zdravšie.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ 3. PRACOVNÉ ============ -->
+<section class="kap" id="k3">
+<h2>🐴 3. Pracovné zvieratá a pomocníci človeka</h2>
+<p><b>Pracovné zvieratá</b> pomáhajú človeku svojou <b>silou</b>, <b>rýchlosťou</b> alebo výbornými <b>zmyslami</b>. Najdôležitejšie sú u nás kôň a pes.</p>
+
+<h3>Kôň</h3>
+<ul>
+  <li><b>Kedysi:</b> ťahal pluh pri oraní, vozy a koče, nosil jazdcov aj poštu. Bez koní by sa ľudia a tovar presúvali oveľa pomalšie.</li>
+  <li><b>Dnes:</b> v lese ťahá vyrúbané kmene (menej poškodí pôdu a mladé stromy ako ťažký stroj), slúži v <b>športe</b> (parkúr, drezúra, dostihy), na <b>rekreáciu</b> a turistiku, v jazdnej polícii a pri <b>hipoterapii</b> (liečba pomocou koňa).</li>
+  <li><b>Spolupráca:</b> kôň je plaché stádové zviera. Človeku poslúcha, keď mu dôveruje. Jazdec ho vedie pokojne – hlasom, opraťami a pohybom tela.</li>
+  <li>Pomenovania: <b>žrebec</b> (samec), <b>kobyla</b> (samica), <b>žriebä</b> (mláďa).</li>
+</ul>
+<p>🤝 Kôň potrebuje pohyb, spoločnosť iných koní, seno a vodu a pravidelnú starostlivosť o kopytá.</p>
+
+<h3>Pes</h3>
+<div class="tabulka-obal"><table>
+<tr><th>Druh práce</th><th>Čo pes robí</th></tr>
+<tr><td><b>strážny</b></td><td>stráži dom, dvor alebo firmu, ohlási cudzieho</td></tr>
+<tr><td><b>pastiersky</b></td><td>stráži stádo pred dravcami (napr. <b>slovenský čuvač</b> na salaši) alebo stádo zháňa a vedie</td></tr>
+<tr><td><b>poľovnícky</b></td><td>vyhľadá zver, ukáže, kde je, a prinesie úlovok</td></tr>
+<tr><td><b>záchranársky</b></td><td>hľadá ľudí zasypaných v lavíne alebo pod troskami a stratených v lese</td></tr>
+<tr><td><b>vodiaci</b></td><td>vedie nevidiaceho človeka, obchádza prekážky, zastaví pri obrubníku</td></tr>
+<tr><td><b>služobný</b></td><td>pomáha polícii, colníkom a armáde: hľadá drogy a výbušniny, sleduje stopu</td></tr>
+<tr><td><b>spoločník</b></td><td>robí radosť, pomáha pri <b>canisterapii</b> (liečba pomocou psa)</td></tr>
+</table></div>
+
+<div class="box">
+  <span class="box-nazov">👃 Prečo práve pes? Vďaka čuchu</span>
+  <p>Pes má v nose <b>oveľa viac čuchových buniek</b> ako človek a veľkú časť mozgu používa na spracovanie pachov. Rozozná pachy, ktoré my vôbec necítime, a dokáže sledovať aj staršiu stopu. Preto ho človek využíva pri hľadaní nezvestných ľudí, zasypaných v lavíne, drog či výbušnín.</p>
+</div>
+<p>🤝 Pes potrebuje každodenný pohyb, výcvik, pozornosť a veterinára.</p>
+
+<div class="fotky">
+  <figure class="foto"><img src="obrazky/kon.jpg" width="960" height="545" alt="Tmavý mohutný ťažný kôň s postrojom stojí v ihličnatom lese pri vyrúbaných kmeňoch, ku ktorým je pripojený reťazou."><figcaption><b>Ťažný kôň</b> pri práci v lese – ťahá kmene. Foto: Trougnouf, <a href="https://creativecommons.org/licenses/by/4.0/deed.sk">CC BY 4.0</a>, <a href="https://commons.wikimedia.org/wiki/File:Draft_horse_pulling_logs_in_Parc_naturel_Hautes_Fagnes,_Eupen,_Belgium_(VeloTour_54_to_55,_DSCF3703).jpg">Wikimedia Commons</a></figcaption></figure>
+  <figure class="foto"><img src="obrazky/pes.jpg" width="960" height="638" alt="Nemecký ovčiak s čiernohnedou srsťou a vztýčenými ušami leží na tráve."><figcaption><b>Nemecký ovčiak</b> – časté plemeno služobných a záchranárskych psov. Foto: Jakub Hałun, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.sk">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/wiki/File:20110425_German_Shepherd_Dog_8505.jpg">Wikimedia Commons</a></figcaption></figure>
+</div>
+
+<h3>Iní pracovní pomocníci <span class="ext">rozširujúce</span></h3>
+<div class="tabulka-obal"><table>
+<tr><th>Zviera</th><th>Kde pracuje</th><th>Ako pomáha</th></tr>
+<tr><td><b>somár</b></td><td>hory, suché krajiny</td><td>nosí náklad po úzkych chodníkoch</td></tr>
+<tr><td><b>ťava</b></td><td>púšte Afriky a Ázie</td><td>nosí ľudí a náklad, dlho vydrží bez pitia; dáva aj mlieko a vlnu</td></tr>
+<tr><td><b>sob</b></td><td>sever Európy a Ázie</td><td>ťahá sane; dáva mlieko, mäso a kožu</td></tr>
+<tr><td><b>slon ázijský</b></td><td>lesy južnej Ázie</td><td>kedysi ťahal a prenášal kmene stromov</td></tr>
+<tr><td><b>mačka</b></td><td>u nás doma aj na farmách</td><td>loví myši a chráni tak zásoby obilia a potravín</td></tr>
+</table></div>
+
+<div class="box zlty">
+  <span class="box-nazov">⭐ Zapamätaj si</span>
+  <ul>
+    <li><b>Kôň</b> kedysi ťahal pluhy a vozy, dnes slúži v športe, rekreácii, lesníctve a pri hipoterapii.</li>
+    <li><b>Pes</b> je strážny, pastiersky, poľovnícky, záchranársky, vodiaci, služobný aj spoločník.</li>
+    <li>Človek využíva najmä <b>výborný čuch psa</b> – pri hľadaní ľudí, drog a výbušnín.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ 4. VČELY ============ -->
+<section class="kap" id="k4">
+<h2>🐝 4. Včely a iný hmyz</h2>
+<p><b>Včela medonosná</b> je jediný hmyz, ktorý človek chová vo veľkom a pravidelne mu dáva produkty. Chov včiel sa volá <b>včelárstvo</b> a človek, ktorý sa o včely stará, je <b>včelár</b>.</p>
+
+<h3>Včelstvo – veľká rodina</h3>
+<p>Včely žijú v <b>včelstve</b> – v spoločenstve, kde má každá včela svoju úlohu. Vo včelstve sú tri druhy včiel:</p>
+
+<figure class="schema">
+<svg viewBox="0 0 680 250" role="img" aria-label="Schéma troch druhov včiel vo včelstve. Matka: jedna v celom včelstve, jediná kladie vajíčka, má najdlhšie telo, kŕmi sa materskou kašičkou, žije niekoľko rokov. Robotnica: najmenšia, je ich tisíce až desaťtisíce, sú to samičky so žihadlom, zbierajú nektár, peľ a vodu, stavajú plásty, kŕmia larvy, strážia a čistia úľ. Trúd: samček s mohutným telom a veľkými očami, žije len cez leto, nemá žihadlo, jeho úlohou je oplodniť matku.">
+  <!-- matka -->
+  <g transform="translate(110,72) scale(1.7)">
+    <path d="M-32,-5 q-8,-12 -16,-13 M-32,-5 q-3,-14 -9,-18" stroke="#3e2723" stroke-width="1.2" fill="none"/>
+    <ellipse cx="-6" cy="-14" rx="14" ry="6" transform="rotate(-18 -6 -14)" fill="#cfe8ff" stroke="#6a8caf" stroke-width=".8" opacity=".9"/>
+    <circle cx="-28" cy="0" r="8" fill="#5d4037"/><ellipse cx="-30" cy="-2" rx="3" ry="5" fill="#212121"/>
+    <circle cx="-12" cy="0" r="11" fill="#8d6e63"/>
+    <ellipse cx="22" cy="0" rx="28" ry="10" fill="#f0b43c"/>
+    <path d="M10,-9 v18 M20,-10 v20 M30,-9.6 v19 M40,-7.5 v15" stroke="#3e2723" stroke-width="3"/>
+    <ellipse cx="2" cy="-12" rx="12" ry="5" transform="rotate(-8 2 -12)" fill="#e3f2ff" stroke="#6a8caf" stroke-width=".8" opacity=".9"/>
+    <path d="M-16,8 l-6,10 M-12,10 v10 M-8,8 l6,11" stroke="#3e2723" stroke-width="1.4"/>
+  </g>
+  <!-- robotnica -->
+  <g transform="translate(345,72) scale(1.7)">
+    <path d="M-30,-5 q-8,-12 -16,-13 M-30,-5 q-3,-14 -9,-18" stroke="#3e2723" stroke-width="1.2" fill="none"/>
+    <ellipse cx="-6" cy="-14" rx="14" ry="6" transform="rotate(-18 -6 -14)" fill="#cfe8ff" stroke="#6a8caf" stroke-width=".8" opacity=".9"/>
+    <circle cx="-27" cy="0" r="8" fill="#5d4037"/><ellipse cx="-29" cy="-2" rx="3" ry="5" fill="#212121"/>
+    <circle cx="-12" cy="0" r="10" fill="#8d6e63"/>
+    <ellipse cx="12" cy="0" rx="18" ry="10" fill="#f6c445"/>
+    <path d="M6,-9.4 v18.8 M14,-9.9 v19.8 M22,-8.3 v16.6" stroke="#3e2723" stroke-width="3"/>
+    <ellipse cx="2" cy="-12" rx="12" ry="5" transform="rotate(-8 2 -12)" fill="#e3f2ff" stroke="#6a8caf" stroke-width=".8" opacity=".9"/>
+    <path d="M-16,8 l-6,10 M-12,9 v10 M-8,8 l6,11" stroke="#3e2723" stroke-width="1.4"/>
+  </g>
+  <!-- trúd -->
+  <g transform="translate(575,72) scale(1.7)">
+    <path d="M-34,-6 q-8,-10 -14,-10 M-34,-6 q-4,-12 -9,-15" stroke="#3e2723" stroke-width="1.2" fill="none"/>
+    <ellipse cx="-4" cy="-17" rx="20" ry="7" transform="rotate(-15 -4 -17)" fill="#cfe8ff" stroke="#6a8caf" stroke-width=".8" opacity=".9"/>
+    <circle cx="-30" cy="0" r="9" fill="#5d4037"/><ellipse cx="-31" cy="-2" rx="6" ry="7.5" fill="#212121"/>
+    <circle cx="-12" cy="0" r="13" fill="#8d6e63"/>
+    <ellipse cx="14" cy="0" rx="18" ry="13" fill="#e2a93a"/>
+    <path d="M8,-12.2 v24.4 M16,-12.9 v25.8 M24,-10.8 v21.6" stroke="#3e2723" stroke-width="3.2"/>
+    <ellipse cx="6" cy="-14" rx="17" ry="6" transform="rotate(-6 6 -14)" fill="#e3f2ff" stroke="#6a8caf" stroke-width=".8" opacity=".9"/>
+    <path d="M-17,10 l-6,10 M-12,12 v10 M-7,10 l6,11" stroke="#3e2723" stroke-width="1.4"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="115" y="140" class="h">MATKA</text>
+    <text x="115" y="160" class="s">jedna v celom včelstve</text>
+    <text x="115" y="177" class="s">jediná kladie vajíčka</text>
+    <text x="115" y="194" class="s">najdlhšie telo (zadoček)</text>
+    <text x="115" y="211" class="s">kŕmi sa materskou kašičkou</text>
+    <text x="115" y="228" class="s">žije niekoľko rokov</text>
+    <text x="340" y="140" class="h">ROBOTNICA</text>
+    <text x="340" y="160" class="s">tisíce až desaťtisíce</text>
+    <text x="340" y="177" class="s">samičky, majú žihadlo</text>
+    <text x="340" y="194" class="s">zbierajú nektár, peľ, vodu</text>
+    <text x="340" y="211" class="s">stavajú plásty, kŕmia larvy</text>
+    <text x="340" y="228" class="s">strážia a čistia úľ</text>
+    <text x="565" y="140" class="h">TRÚD</text>
+    <text x="565" y="160" class="s">samčeky, len cez leto</text>
+    <text x="565" y="177" class="s">je ich oveľa menej než robotníc</text>
+    <text x="565" y="194" class="s">nemajú žihadlo</text>
+    <text x="565" y="211" class="s">veľké oči, mohutné telo</text>
+    <text x="565" y="228" class="s">úloha: oplodniť matku</text>
+  </g>
+</svg>
+<figcaption>Tri druhy včiel vo včelstve (zjednodušená kresba, nie je v mierke).</figcaption>
+</figure>
+
+<p>Robotnice si práce delia podľa veku: mladé čistia bunky a kŕmia larvy, staršie stavajú plásty a strážia vchod, najstaršie lietajú von na kvety. Robotnica žije v lete len niekoľko týždňov.</p>
+
+<h3>Úľ a plást</h3>
+<p>Včelstvo býva v <b>úli</b>. Vnútri sú vedľa seba zavesené drevené <b>rámiky</b>, na ktorých včely postavia <b>plásty</b> z vosku. Plást tvoria <b>šesťuholníkové bunky</b>. Do buniek ukladajú med a peľ a matka do nich kladie vajíčka. Vchod do úľa sa volá <b>česno</b>.</p>
+
+<figure class="schema">
+<svg viewBox="0 0 700 300" role="img" aria-label="Vľavo zjednodušený rez úľom: strecha, dva nástavky, v nich vedľa seba rámiky s plástami, dole vchod – česno. Vpravo plást zblízka zo šesťuholníkových buniek: hore zavíčkovaný med, pod ním otvorený med a nektár, potom peľ, v strede bunky s vajíčkami a larvami a dole zavíčkovaný plod, v ktorom sú kukly.">
+  <defs><polygon id="hx" points="0,-18 15.6,-9 15.6,9 0,18 -15.6,9 -15.6,-9"/></defs>
+  <!-- úľ -->
+  <polygon points="100,60 220,24 340,60" fill="#8d6e63" stroke="#4e342e" stroke-width="2"/>
+  <rect x="120" y="62" width="200" height="95" fill="#f3d9a4" stroke="#8d5a2b" stroke-width="2"/>
+  <rect x="120" y="160" width="200" height="95" fill="#f3d9a4" stroke="#8d5a2b" stroke-width="2"/>
+  <g fill="#f7c948" stroke="#a67c00" stroke-width="1.2">
+    <rect x="132" y="70" width="12" height="80"/><rect x="154" y="70" width="12" height="80"/><rect x="176" y="70" width="12" height="80"/><rect x="198" y="70" width="12" height="80"/><rect x="220" y="70" width="12" height="80"/><rect x="242" y="70" width="12" height="80"/><rect x="264" y="70" width="12" height="80"/><rect x="286" y="70" width="12" height="80"/>
+    <rect x="132" y="168" width="12" height="76"/><rect x="154" y="168" width="12" height="76"/><rect x="176" y="168" width="12" height="76"/><rect x="198" y="168" width="12" height="76"/><rect x="220" y="168" width="12" height="76"/><rect x="242" y="168" width="12" height="76"/><rect x="264" y="168" width="12" height="76"/><rect x="286" y="168" width="12" height="76"/>
+  </g>
+  <rect x="114" y="255" width="212" height="10" fill="#8d6e63" stroke="#4e342e" stroke-width="1.5"/>
+  <rect x="190" y="246" width="60" height="9" fill="#3e2723"/>
+  <path d="M130,265 v20 M310,265 v20" stroke="#4e342e" stroke-width="4"/>
+  <text x="8" y="42">strecha</text><path class="lead" d="M58,38 L150,50"/>
+  <text x="8" y="104">nástavok</text><path class="lead" d="M68,100 L120,104"/>
+  <text x="8" y="196">rámik</text><text x="8" y="211">s plástom</text><path class="lead" d="M72,200 L132,200"/>
+  <text x="8" y="258">česno</text><text x="8" y="273">(vchod)</text><path class="lead" d="M50,254 L190,251"/>
+  <text x="220" y="298" text-anchor="middle" class="s">Úľ v reze (zjednodušene)</text>
+  <!-- plást -->
+  <text x="535" y="24" text-anchor="middle" class="h">Plást zblízka</text>
+  <g stroke="#a67c00" stroke-width="1.5">
+    <use href="#hx" x="449" y="58" fill="#fff1b8"/><use href="#hx" x="480.2" y="58" fill="#fff1b8"/><use href="#hx" x="511.4" y="58" fill="#fff1b8"/><use href="#hx" x="542.6" y="58" fill="#fff1b8"/><use href="#hx" x="573.8" y="58" fill="#fff1b8"/><use href="#hx" x="605" y="58" fill="#fff1b8"/>
+    <use href="#hx" x="464.6" y="85" fill="#fff1b8"/><use href="#hx" x="495.8" y="85" fill="#f2b632"/><use href="#hx" x="527" y="85" fill="#f2b632"/><use href="#hx" x="558.2" y="85" fill="#f2b632"/><use href="#hx" x="589.4" y="85" fill="#f2b632"/><use href="#hx" x="620.6" y="85" fill="#fff1b8"/>
+    <use href="#hx" x="449" y="112" fill="#f2b632"/><use href="#hx" x="480.2" y="112" fill="#ef7f2c"/><use href="#hx" x="511.4" y="112" fill="#ef7f2c"/><use href="#hx" x="542.6" y="112" fill="#ef7f2c"/><use href="#hx" x="573.8" y="112" fill="#ef7f2c"/><use href="#hx" x="605" y="112" fill="#f2b632"/>
+    <use href="#hx" x="464.6" y="139" fill="#ef7f2c"/><use href="#hx" x="495.8" y="139" fill="#fdf6e3"/><use href="#hx" x="527" y="139" fill="#fdf6e3"/><use href="#hx" x="558.2" y="139" fill="#fdf6e3"/><use href="#hx" x="589.4" y="139" fill="#fdf6e3"/><use href="#hx" x="620.6" y="139" fill="#ef7f2c"/>
+    <use href="#hx" x="449" y="166" fill="#c69c6d"/><use href="#hx" x="480.2" y="166" fill="#c69c6d"/><use href="#hx" x="511.4" y="166" fill="#c69c6d"/><use href="#hx" x="542.6" y="166" fill="#c69c6d"/><use href="#hx" x="573.8" y="166" fill="#c69c6d"/><use href="#hx" x="605" y="166" fill="#c69c6d"/>
+  </g>
+  <!-- vajíčka a larvy -->
+  <g fill="#fff" stroke="#888" stroke-width="1"><ellipse cx="495.8" cy="139" rx="2.2" ry="6"/><ellipse cx="589.4" cy="139" rx="2.2" ry="6"/></g>
+  <g fill="none" stroke-linecap="round">
+    <path d="M532,134 A7 7 0 1 0 532,144" stroke="#b8a888" stroke-width="7"/><path d="M532,134 A7 7 0 1 0 532,144" stroke="#fff" stroke-width="4.5"/>
+    <path d="M563.2,134 A7 7 0 1 0 563.2,144" stroke="#b8a888" stroke-width="7"/><path d="M563.2,134 A7 7 0 1 0 563.2,144" stroke="#fff" stroke-width="4.5"/>
+  </g>
+  <!-- legenda -->
+  <g stroke="#a67c00" stroke-width="2">
+    <use href="#hx" transform="translate(410,212) scale(.45)" fill="#fff1b8"/>
+    <use href="#hx" transform="translate(410,236) scale(.45)" fill="#f2b632"/>
+    <use href="#hx" transform="translate(410,260) scale(.45)" fill="#ef7f2c"/>
+    <use href="#hx" transform="translate(550,212) scale(.45)" fill="#fdf6e3"/>
+    <use href="#hx" transform="translate(550,236) scale(.45)" fill="#fdf6e3"/>
+    <use href="#hx" transform="translate(550,260) scale(.45)" fill="#c69c6d"/>
+  </g>
+  <ellipse cx="550" cy="212" rx="1.6" ry="4" fill="#fff" stroke="#888" stroke-width=".8"/>
+  <path d="M553,233 A4 4 0 1 0 553,239" fill="none" stroke="#b8a888" stroke-width="3" stroke-linecap="round"/>
+  <g class="s">
+    <text x="424" y="216">zavíčkovaný med</text>
+    <text x="424" y="240">med a nektár</text>
+    <text x="424" y="264">peľ</text>
+    <text x="564" y="216">vajíčko</text>
+    <text x="564" y="240">larva</text>
+    <text x="564" y="264">plod s kuklami</text>
+  </g>
+  <text x="535" y="284" text-anchor="middle" class="s">Šesťuholníky zapadajú bez medzier:</text>
+  <text x="535" y="298" text-anchor="middle" class="s">málo vosku, veľa miesta.</text>
+</svg>
+<figcaption>Úľ a plást (zjednodušená schéma). Bunky so zásobami bývajú hore a po okrajoch, plod (mláďatá) v strede plástu.</figcaption>
+</figure>
+
+<h3>Vývin včely – úplná premena</h3>
+<p>Včela sa vyvíja <b>úplnou premenou</b>: <b>vajíčko → larva → kukla → dospelá včela</b>. Larva vôbec nevyzerá ako včela – je to biely beznohý „červík“, ktorý len je a rastie. Potom sa v zavíčkovanej bunke zmení na <b>kuklu</b> a z kukly vylezie hotová včela. Robotnici to trvá približne tri týždne. Rovnako sa vyvíjajú aj <b>motýle</b> (napríklad priadka morušová, pozri nižšie).</p>
+
+<figure class="schema">
+<svg viewBox="0 0 700 330" role="img" aria-label="Schéma úplnej premeny. Hore včela medonosná: vajíčko v bunke, ktoré kladie matka; larva, ktorú kŕmia robotnice; kukla v zavíčkovanej bunke; dospelá včela vylezie z bunky. Dole priadka morušová: drobné vajíčka; húsenica, ktorá žerie listy moruše; kukla v kokóne z hodvábneho vlákna; dospelý motýľ, ktorý nakladie vajíčka.">
+  <text x="12" y="22" class="h">Včela medonosná</text>
+  <text x="12" y="182" class="h">Priadka morušová (motýľ)</text>
+  <!-- šípky -->
+  <g class="sip"><line x1="152" y1="75" x2="208" y2="75"/><line x1="322" y1="75" x2="378" y2="75"/><line x1="492" y1="75" x2="548" y2="75"/>
+    <line x1="152" y1="235" x2="208" y2="235"/><line x1="322" y1="235" x2="378" y2="235"/><line x1="492" y1="235" x2="548" y2="235"/></g>
+  <g class="sipka"><polygon points="218,75 206,69 206,81"/><polygon points="388,75 376,69 376,81"/><polygon points="558,75 546,69 546,81"/>
+    <polygon points="218,235 206,229 206,241"/><polygon points="388,235 376,229 376,241"/><polygon points="558,235 546,229 546,241"/></g>
+  <!-- včela: bunky -->
+  <g stroke="#a67c00" stroke-width="1.2">
+    <use href="#hx" transform="translate(100,75) scale(1.7)" fill="#fdf6e3"/>
+    <use href="#hx" transform="translate(270,75) scale(1.7)" fill="#fdf6e3"/>
+    <use href="#hx" transform="translate(440,75) scale(1.7)" fill="#c69c6d"/>
+  </g>
+  <ellipse cx="100" cy="75" rx="3.5" ry="11" fill="#fff" stroke="#888" stroke-width="1.2"/>
+  <path d="M278,64 A13 13 0 1 0 278,86" fill="none" stroke="#b8a888" stroke-width="12" stroke-linecap="round"/>
+  <path d="M278,64 A13 13 0 1 0 278,86" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  <path d="M424,70 q16,-6 32,0 M424,80 q16,6 32,0" stroke="#8d6e63" stroke-width="1.2" fill="none"/>
+  <g transform="translate(610,75) scale(1.3)">
+    <path d="M-30,-5 q-8,-12 -16,-13 M-30,-5 q-3,-14 -9,-18" stroke="#3e2723" stroke-width="1.2" fill="none"/>
+    <ellipse cx="-6" cy="-14" rx="14" ry="6" transform="rotate(-18 -6 -14)" fill="#cfe8ff" stroke="#6a8caf" stroke-width=".8" opacity=".9"/>
+    <circle cx="-27" cy="0" r="8" fill="#5d4037"/><ellipse cx="-29" cy="-2" rx="3" ry="5" fill="#212121"/>
+    <circle cx="-12" cy="0" r="10" fill="#8d6e63"/>
+    <ellipse cx="12" cy="0" rx="18" ry="10" fill="#f6c445"/>
+    <path d="M6,-9.4 v18.8 M14,-9.9 v19.8 M22,-8.3 v16.6" stroke="#3e2723" stroke-width="3"/>
+    <ellipse cx="2" cy="-12" rx="12" ry="5" transform="rotate(-8 2 -12)" fill="#e3f2ff" stroke="#6a8caf" stroke-width=".8" opacity=".9"/>
+    <path d="M-16,8 l-6,10 M-12,9 v10 M-8,8 l6,11" stroke="#3e2723" stroke-width="1.4"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="100" y="128" class="t">1 vajíčko</text><text x="100" y="145" class="s">matka ho kladie do bunky</text>
+    <text x="270" y="128" class="t">2 larva</text><text x="270" y="145" class="s">kŕmia ju robotnice</text>
+    <text x="440" y="128" class="t">3 kukla</text><text x="440" y="145" class="s">v zavíčkovanej bunke</text>
+    <text x="610" y="128" class="t">4 dospelá včela</text><text x="610" y="145" class="s">prehryzie viečko a vylezie</text>
+  </g>
+  <!-- priadka -->
+  <ellipse cx="100" cy="238" rx="34" ry="15" transform="rotate(-12 100 238)" fill="#8bc34a" stroke="#558b2f" stroke-width="1.5"/>
+  <g fill="#f3e6a8" stroke="#b59b3b" stroke-width="1"><circle cx="86" cy="238" r="3.5"/><circle cx="95" cy="234" r="3.5"/><circle cx="104" cy="238" r="3.5"/><circle cx="96" cy="243" r="3.5"/><circle cx="112" cy="233" r="3.5"/><circle cx="113" cy="242" r="3.5"/></g>
+  <path d="M232,250 Q270,256 308,246" stroke="#558b2f" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g fill="#ece7da" stroke="#9e9583" stroke-width="1.2">
+    <circle cx="300" cy="236" r="7"/><circle cx="291" cy="234" r="7.5"/><circle cx="282" cy="233" r="7.5"/><circle cx="273" cy="234" r="7.5"/><circle cx="264" cy="236" r="7.5"/><circle cx="255" cy="237" r="7.5"/><circle cx="246" cy="236" r="7"/>
+  </g>
+  <circle cx="239" cy="234" r="6" fill="#b5ab95" stroke="#7d745f" stroke-width="1.2"/>
+  <ellipse cx="440" cy="235" rx="28" ry="16" fill="#fbf8ef" stroke="#bdb6a3" stroke-width="1.5"/>
+  <path d="M418,228 q22,-8 44,0 M416,236 q24,-6 48,0 M418,244 q22,6 44,0" stroke="#d8d1bd" stroke-width="1" fill="none"/>
+  <path d="M606,220 q-6,-12 -14,-14 M614,220 q6,-12 14,-14" stroke="#8c836d" stroke-width="1.5" fill="none"/>
+  <ellipse cx="596" cy="229" rx="16" ry="10" transform="rotate(-25 596 229)" fill="#f3ecda" stroke="#a89f88" stroke-width="1.2"/>
+  <ellipse cx="624" cy="229" rx="16" ry="10" transform="rotate(25 624 229)" fill="#f3ecda" stroke="#a89f88" stroke-width="1.2"/>
+  <ellipse cx="598" cy="247" rx="11" ry="8" transform="rotate(20 598 247)" fill="#f3ecda" stroke="#a89f88" stroke-width="1.2"/>
+  <ellipse cx="622" cy="247" rx="11" ry="8" transform="rotate(-20 622 247)" fill="#f3ecda" stroke="#a89f88" stroke-width="1.2"/>
+  <ellipse cx="610" cy="237" rx="5" ry="17" fill="#d8cfb8" stroke="#8c836d" stroke-width="1.2"/>
+  <g text-anchor="middle">
+    <text x="100" y="288" class="t">1 vajíčka</text><text x="100" y="305" class="s">drobné, nakladené vo veľkom počte</text>
+    <text x="270" y="288" class="t">2 húsenica (larva)</text><text x="270" y="305" class="s">žerie listy moruše</text>
+    <text x="440" y="288" class="t">3 kukla v kokóne</text><text x="440" y="305" class="s">kokón = hodvábne vlákno</text>
+    <text x="610" y="288" class="t">4 dospelý motýľ</text><text x="610" y="305" class="s">nakladie nové vajíčka</text>
+  </g>
+  <text x="350" y="325" text-anchor="middle" class="s">Úplná premena: vajíčko → larva → kukla → dospelý jedinec. Larva sa na dospelého vôbec nepodobá.</text>
+</svg>
+<figcaption>Úplná premena včely a motýľa (zjednodušená kresba, nie je v mierke).</figcaption>
+</figure>
+
+<h3>Čo nám včely dávajú</h3>
+<div class="tabulka-obal"><table>
+<tr><th>Produkt</th><th>Čo to je</th><th>Na čo sa používa</th></tr>
+<tr><td><b>med</b></td><td>včely nasajú z kvetov sladký <b>nektár</b>, v úli z neho odparia vodu, uložia ho do buniek a zavíčkujú voskom</td><td>potravina, sladidlo; pre včely je to zásoba potravy na zimu</td></tr>
+<tr><td><b>vosk</b></td><td>vylučujú ho žľazy na spodnej strane tela robotníc, stavajú z neho plásty</td><td>sviečky, kozmetika, ošetrovanie dreva</td></tr>
+<tr><td><b>peľ</b></td><td>„prach“ z kvetov, ktorý včely nosia na nohách v hrudkách</td><td>bielkovinová potrava pre larvy; ľudia ho jedia ako doplnok stravy</td></tr>
+<tr><td><b>propolis</b></td><td>lepkavá živica, ktorú včely zbierajú z púčikov stromov</td><td>včely ním utesňujú a chránia úľ; človek ho používa v prírodných prípravkoch</td></tr>
+<tr><td><b>materská kašička</b></td><td>výživná šťava zo žliaz mladých robotníc</td><td>kŕmia ňou najmladšie larvy a celý život matku; človek ju používa v doplnkoch výživy</td></tr>
+</table></div>
+
+<h3>Opeľovanie – najväčší dar včiel</h3>
+<p><b>Opeľovanie</b> (opelenie) je prenos <b>peľu</b> z kvetu na kvet – z peľnice na bliznu. Bez opelenia nevznikne <b>plod</b> ani <b>semeno</b>. Včela pri zbere nektáru zachytí na svoje chlpaté telo peľ a prenesie ho na ďalší kvet. Opeľovače potrebujú napríklad <b>jablone, hrušky, čerešne, slivky, jahody, uhorky, tekvice, repka a slnečnica</b>.</p>
+
+<div class="box">
+  <span class="box-nazov">🍎 Prečo sú včely dôležité aj bez medu?</span>
+  <p>Aj keby sme med vôbec nejedli, včely by nám chýbali. Bez opeľovačov by na stromoch a v záhradách dozrelo <b>oveľa menej ovocia a zeleniny</b> a mnohé divé rastliny by nemali semená. Potom by chýbala potrava aj zvieratám, ktoré sa živia plodmi a semenami.</p>
+</div>
+
+<div class="box pozor">
+  <span class="box-nazov">Pozor</span>
+  <ul>
+    <li><b>Včela medonosná nie je jediný opeľovač.</b> Rovnako dôležité sú divé opeľovače – čmeliaky, samotárske včely, motýle, pestrice a ďalšie.</li>
+    <li>Nie všetky plodiny potrebujú hmyz: <b>obilie</b> (pšenica, kukurica) opeľuje <b>vietor</b>. Bez včiel by sme teda mali chlieb, ale menej ovocia a zeleniny.</li>
+  </ul>
+</div>
+
+<h3>Iné opeľovače</h3>
+<div class="tabulka-obal"><table>
+<tr><th>Opeľovač</th><th>Čo je o ňom dobré vedieť</th></tr>
+<tr><td><b>čmeliaky</b></td><td>veľké chlpaté včely, lietajú aj v chladnejšom počasí; v skleníkoch sa chovajú na opeľovanie paradajok</td></tr>
+<tr><td><b>samotárske včely</b> <span class="ext">rozširujúce</span></td><td>nežijú vo včelstve, každá samička si stavia vlastné hniezdo (napríklad v dierach v dreve)</td></tr>
+<tr><td><b>motýle</b></td><td>dlhým cuciakom sajú nektár, opeľujú najmä kvety s hlbokou korunou</td></tr>
+<tr><td><b>pestrice</b> (muchy)</td><td>vyzerajú ako osy, ale nebodajú; ich larvy navyše jedia vošky</td></tr>
+<tr><td><b>osy</b></td><td>opeľujú len trochu, no lovia veľa hmyzu vrátane škodcov</td></tr>
+</table></div>
+
+<div class="fotky">
+  <figure class="foto"><img src="obrazky/vcela.jpg" width="960" height="1213" alt="Včela medonosná so zlatohnedým chlpatým telom a pruhovaným zadočkom sedí na fialovom kvete levandule." style="object-position:50% 30%"><figcaption><b>Včela medonosná</b> na kvete levandule. Foto: Martin Falbisoner, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.sk">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/wiki/File:Bee_on_Lavender_Blossom_2.jpg">Wikimedia Commons</a></figcaption></figure>
+  <figure class="foto"><img src="obrazky/cmeliak.jpg" width="960" height="960" alt="Chlpatý čmeliak s čiernymi a žltými pruhmi visí na ružovom kvete." style="object-position:40% 40%"><figcaption><b>Čmeliak</b> na kvete – tiež dôležitý opeľovač. Foto: Flocci Nivis, <a href="https://creativecommons.org/licenses/by/4.0/deed.sk">CC BY 4.0</a>, <a href="https://commons.wikimedia.org/wiki/File:20220802_Bombus_01.jpg">Wikimedia Commons</a></figcaption></figure>
+</div>
+
+<h3>Priadka morušová – hodváb <span class="ext">rozširujúce</span></h3>
+<p><b>Priadka morušová</b> je motýľ, ktorého húsenice sa živia listami <b>moruše</b>. Pred zakuklením sa húsenica zabalí do <b>kokónu</b> z jedného dlhého tenkého vlákna. Ľudia kokóny namáčajú v horúcej vode, vlákno z nich odvinú a spradú z neho <b>hodváb</b>. Priadku chovali ako prví v <b>Číne</b>. Je to domestikovaný hmyz – v prírode by už nedokázala prežiť.</p>
+
+<div class="box ok">
+  <span class="box-nazov">🤝 Ohľaduplné včelárstvo</span>
+  <p>Dobrý včelár udržiava včelstvá zdravé, nechá im dosť zásob na zimu a úle umiestni na pokojné miesto. Pre všetky opeľovače je dôležité, aby sa kvitnúce rastliny nepostrekovali jedmi.</p>
+</div>
+
+<div class="box zlty">
+  <span class="box-nazov">⭐ Zapamätaj si</span>
+  <ul>
+    <li>Včelstvo: <b>matka</b> (kladie vajíčka), <b>robotnice</b> (všetka práca), <b>trúdy</b> (samčeky).</li>
+    <li>Včely dávajú <b>med, vosk, peľ, propolis, materskú kašičku</b>, no najdôležitejšie je <b>opeľovanie</b> – bez neho by bolo málo ovocia a zeleniny.</li>
+    <li>Včela sa vyvíja <b>úplnou premenou</b>: vajíčko → larva → kukla → dospelá včela.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ 7. SPOLOČNÍCI ============ -->
+<section class="kap" id="k7">
+<h2>🐾 5. Spoločníci a zvieratá v domácnosti</h2>
+<p>Niektoré zvieratá chováme pre radosť a spoločnosť. Zviera však nie je hračka: je to živá bytosť, ktorá cíti hlad, smäd, bolesť aj strach. Kto si zviera vezme, preberá za neho <b>zodpovednosť</b> na celý jeho život.</p>
+
+<p><b>Každé zviera potrebuje:</b> vhodnú <b>potravu</b> a čerstvú <b>vodu</b>, dostatok <b>miesta</b>, <b>pohyb</b>, čistotu, <b>pozornosť</b> a návštevu <b>veterinára</b> (očkovanie, prehliadky, liečba).</p>
+
+<div class="tabulka-obal"><table>
+<tr><th>Zviera</th><th>Čo potrebuje</th><th>Dobré vedieť</th></tr>
+<tr><td><b>🐈 mačka</b></td><td>miesto na spanie, škrabadlo, toaletu s podstielkou, hru</td><td>je samostatná, ale potrebuje pozornosť a veterinára</td></tr>
+<tr><td><b>🐕 pes</b></td><td>denné prechádzky, výcvik, spoločnosť</td><td>nerád je dlho sám; jeho chov vyžaduje veľa času</td></tr>
+<tr><td><b>🐇 králik</b></td><td>seno, zeleninu, priestor na pohyb mimo klietky</td><td>zuby mu rastú celý život, preto musí stále hrýzť seno</td></tr>
+<tr><td><b>🐹 morča</b></td><td>seno, čerstvú zeleninu, spoločnosť ďalšieho morčaťa</td><td>je spoločenské – samo je smutné</td></tr>
+<tr><td><b>🐹 škrečok</b></td><td>priestrannú klietku, podstielku na hrabanie, koliesko</td><td>žije sám a je aktívny najmä v noci</td></tr>
+<tr><td><b>🐠 akváriové ryby</b></td><td>dostatočne veľké akvárium, filtráciu, vhodnú teplotu vody</td><td>do akvária nedávame priveľa rýb</td></tr>
+<tr><td><b>🐦 vtáky</b> (napr. andulka)</td><td>veľkú klietku, vyletovanie po izbe, spoločnosť</td><td>andulky sú spoločenské, radšej chováme dve</td></tr>
+</table></div>
+
+<h3>Zvieratá v terapii <span class="ext">rozširujúce</span></h3>
+<p>Kontakt so zvieraťom pomáha ľuďom cítiť sa lepšie. Pri <b>canisterapii</b> vyškolení psi navštevujú deti, chorých a starších ľudí. Pri <b>hipoterapii</b> pohyb koňa pomáha ľuďom s poruchami pohybu.</p>
+
+<div class="box pozor">
+  <span class="box-nazov">Čo nikdy nerobiť</span>
+  <ul>
+    <li><b>Nevypúšťaj domáce ani exotické zvieratá do prírody.</b> Domáce zviera v prírode väčšinou zahynie a exotické môže vytlačiť naše druhy. Napríklad vypustené <b>korytnačky písmenkové</b> (s červenými škvrnami za očami) ohrozujú naše vodné živočíchy.</li>
+    <li><b>Nekupuj zviera spontánne</b> (lebo je zlaté alebo ho chce kamarát) a nedávaj ho ako darček-prekvapenie. Pes alebo mačka žijú aj vyše 10 rokov. Najprv si s rodinou premyslite, kto sa bude starať každý deň, aj cez prázdniny.</li>
+    <li>Ak zviera hľadáte, myslite aj na <b>útulok</b> – čaká tam veľa zvierat na nový domov.</li>
+  </ul>
+</div>
+
+<div class="box zlty">
+  <span class="box-nazov">⭐ Zapamätaj si</span>
+  <ul>
+    <li>Zviera v domácnosti potrebuje potravu, vodu, miesto, pohyb, čistotu, pozornosť a veterinára.</li>
+    <li>Majiteľ je za zviera <b>zodpovedný</b> počas celého jeho života.</li>
+    <li>Zvieratá nikdy nevypúšťame do prírody a nekupujeme ich spontánne.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ SLOVNÍČEK ============ -->
+<h2>📖 Slovníček pojmov</h2>
+<dl class="gloss">
+  <div><dt>canisterapia</dt><dd>liečba a pomoc ľuďom pomocou vycvičeného psa</dd></div>
+  <div><dt>česno</dt><dd>vchod do úľa</dd></div>
+  <div><dt>domestikácia</dt><dd>premena divého druhu na domáci počas tisícov rokov</dd></div>
+  <div><dt>domáce zviera</dt><dd>domestikované zviera, ktoré žije s človekom (aj krava, sliepka)</dd></div>
+  <div><dt>hospodárske zviera</dt><dd>zviera chované pre úžitok (potravu, suroviny)</dd></div>
+  <div><dt>hipoterapia</dt><dd>liečba pomocou koňa, najmä pri poruchách pohybu</dd></div>
+  <div><dt>kokón</dt><dd>obal z vlákna, v ktorom sa zakuklí húsenica (napr. priadky)</dd></div>
+  <div><dt>kukla</dt><dd>štádium vývinu medzi larvou a dospelým hmyzom, v ktorom sa telo prestavuje</dd></div>
+  <div><dt>larva</dt><dd>mláďa hmyzu, ktoré sa nepodobá na dospelého (u motýľa húsenica)</dd></div>
+  <div><dt>matka</dt><dd>jediná samička vo včelstve, ktorá kladie vajíčka</dd></div>
+  <div><dt>opeľovanie</dt><dd>prenos peľu z kvetu na kvet, bez neho nevznikne plod a semeno</dd></div>
+  <div><dt>pracovné zviera</dt><dd>zviera, ktoré pomáha človeku silou, rýchlosťou alebo zmyslami (kôň, pes)</dd></div>
+  <div><dt>plást</dt><dd>stena zo šesťuholníkových voskových buniek v úli</dd></div>
+  <div><dt>plemeno</dt><dd>skupina zvierat jedného druhu s podobnými vlastnosťami, ktorú vyšľachtil človek</dd></div>
+  <div><dt>prežúvavec</dt><dd>bylinožravec, ktorý potravu prehltne a neskôr ju znova prežúva (krava, ovca, koza)</dd></div>
+  <div><dt>robotnica</dt><dd>samička vo včelstve, ktorá vykonáva všetku prácu</dd></div>
+  <div><dt>trúd</dt><dd>samček včely, nemá žihadlo</dd></div>
+  <div><dt>úplná premena</dt><dd>vývin vajíčko → larva → kukla → dospelý jedinec</dd></div>
+  <div><dt>úžitkovosť</dt><dd>koľko a čoho zviera dáva (mlieka, vajec, vlny…)</dd></div>
+  <div><dt>včelstvo</dt><dd>spoločenstvo včiel: matka, robotnice a trúdy</dd></div>
+</dl>
+
+<!-- ============ OPAKOVANIE ============ -->
+<div class="nova-strana"></div>
+<h2>✏️ Na opakovanie</h2>
+<p>Odpovedaj na vyznačené riadky alebo do zošita. Správne odpovede nájdeš na samostatnej strane na konci.</p>
+<ol class="ulohy">
+  <li><b>Priraď</b> ku každému zvieraťu jeho hlavný úžitok (napíš písmeno).
+    <div class="tabulka-obal"><table>
+      <tr><th>Zviera</th><th>Písmeno</th><th>Úžitok</th></tr>
+      <tr><td>1 ovca</td><td></td><td>A vajcia</td></tr>
+      <tr><td>2 sliepka</td><td></td><td>B med a vosk</td></tr>
+      <tr><td>3 včela medonosná</td><td></td><td>C vlna a bryndza</td></tr>
+      <tr><td>4 priadka morušová</td><td></td><td>D hľadá zasypaných ľudí</td></tr>
+      <tr><td>5 záchranársky pes</td><td></td><td>E hodváb</td></tr>
+      <tr><td>6 hus</td><td></td><td>F perie a páperie</td></tr>
+    </table></div>
+  </li>
+  <li><b>Doplň</b>: Premena divého zvieraťa na domáce sa volá <span class="line"></span>. Predkom psa je <span class="line"></span> a predkom ošípanej je <span class="line"></span>.</li>
+  <li>Prečo si človek pri domestikácii nechával a rozmnožoval práve <b>krotšie a úžitkovejšie</b> zvieratá?<span class="riadok"></span><span class="riadok"></span></li>
+  <li>Vymenuj <b>tri výrobky</b>, ktoré získavame z kravského mlieka.<span class="riadok"></span></li>
+  <li><b>Zoraď</b> štádiá vývinu včely od začiatku (napíš čísla 1–4): ___ kukla, ___ vajíčko, ___ dospelá včela, ___ larva. Ako sa volá takýto vývin?<span class="riadok"></span></li>
+  <li>Kto vo včelstve <b>kladie vajíčka</b>, kto <b>zbiera nektár</b> a kto <b>nemá žihadlo</b>?<span class="riadok"></span></li>
+  <li><b>Prečo</b> sú včely pre človeka dôležité, aj keby sme vôbec nejedli med?<span class="riadok"></span><span class="riadok"></span></li>
+  <li>Uveď tri príklady, ako človek využíva <b>čuch psa</b>.<span class="riadok"></span></li>
+  <li>Je lienka vždy prospešná a voška vždy škodlivá? Vysvetli na príklade, prečo „prospešný“ a „škodlivý“ nie je navždy.<span class="riadok"></span><span class="riadok"></span></li>
+  <li><b>Pravda alebo nepravda?</b> Napíš P alebo N.<br>
+    a) Včela medonosná je jediný opeľovač. ___<br>
+    b) Krava je domáce zviera, hoci nežije v byte. ___<br>
+    c) Sliepka znáša vajcia, len keď je pri nej kohút. ___<br>
+    d) Domestikácia trvala tisíce rokov. ___</li>
+  <li>Prečo nesmieme do rybníka vypustiť korytnačku, ktorá nás už doma nebaví?<span class="riadok"></span></li>
+  <li>Napíš <b>štyri veci</b>, ktoré potrebuje každé zviera chované v domácnosti.<span class="riadok"></span><span class="riadok"></span></li>
+</ol>
+
+<!-- ============ ODPOVEDE ============ -->
+<div class="nova-strana"></div>
+<h2>✅ Správne odpovede (pre rodiča / na kontrolu)</h2>
+<ol class="ulohy">
+  <li>1 – C, 2 – A, 3 – B, 4 – E, 5 – D, 6 – F.</li>
+  <li><b>domestikácia</b>; predkom psa je <b>vlk</b>, predkom ošípanej <b>diviak</b>.</li>
+  <li>Krotké zviera sa dá chovať blízko domu a nie je nebezpečné. Úžitkovejšie zviera dáva viac mlieka, mäsa či vlny. Mláďatá tieto vlastnosti zdedili, takže sa z generácie na generáciu zlepšovali.</li>
+  <li>Napríklad syr, maslo, tvaroh, jogurt, smotana, kefír.</li>
+  <li>1 vajíčko, 2 larva, 3 kukla, 4 dospelá včela. Je to <b>úplná premena</b>.</li>
+  <li>Vajíčka kladie <b>matka</b>, nektár zbierajú <b>robotnice</b>, žihadlo nemajú <b>trúdy</b>.</li>
+  <li>Včely <b>opeľujú</b> kvety. Bez opelenia by nevzniklo veľa plodov a semien, takže by bolo menej ovocia a zeleniny a menej potravy aj pre iné zvieratá.</li>
+  <li>Napríklad hľadanie ľudí v lavíne alebo pod troskami, hľadanie stratených ľudí, hľadanie drog a výbušnín, sledovanie stopy, poľovníctvo.</li>
+  <li>Nie. Voška síce škodí rastlinám, ale je potravou pre lienky a vtáky. Ani lienka by nemala čo jesť bez vošiek. Škodlivým sa živočích stáva hlavne vtedy, keď sa premnoží (napr. hraboše na poli).</li>
+  <li>a) N (opeľujú aj čmeliaky, motýle, pestrice…); b) P; c) N (znáša aj bez kohúta, len sa z vajec nevyliahnu kuriatka); d) P.</li>
+  <li>Korytnačka je nepôvodný (exotický) druh. V prírode môže ohroziť naše živočíchy alebo sama zahynúť. Zviera, o ktoré sa nevieme starať, treba odovzdať do útulku alebo novému majiteľovi.</li>
+  <li>Napríklad vhodnú potravu, čerstvú vodu, dostatok miesta, pohyb, čistotu, pozornosť a veterinára.</li>
+</ol>
+
+<!-- ============ POZNÁMKA K ÚDAJOM ============ -->
+<h2>ℹ️ Poznámka k údajom</h2>
+<p>Materiál je napísaný vlastnými slovami podľa ŠVP pre 6. ročník ZŠ, nie podľa konkrétnej učebnice. Schémy sú vlastné zjednodušené kresby a nie sú v mierke. Čísla v texte sú zaokrúhlené, orientačné hodnoty. Časti označené <span class="ext">rozširujúce</span> idú nad rámec základného učiva. Ak sa vaša učebnica v niektorom pomenovaní líši, riaďte sa ňou.</p>
+<p><b>Na overenie</b> (tvrdenia, ktoré sa v zdrojoch líšia alebo sa môžu meniť):</p>
+<ul>
+  <li>pes ako najstaršie domáce zviera – odhady, kedy k domestikácii došlo, sa v zdrojoch líšia (najčastejšie sa uvádza viac ako 15 000 rokov),</li>
+  <li>pratur vyhynul (posledný jedinec sa uvádza v 17. storočí v Poľsku),</li>
+  <li>vývin robotnice „približne tri týždne“ a „robotnica žije v lete niekoľko týždňov“.</li>
+</ul>
+
+<!-- ============ ZDROJE OBRÁZKOV ============ -->
+<h2>🖼️ Zdroje obrázkov</h2>
+<p>Schémy sú vlastné kresby autora (SVG). Fotografie pochádzajú z Wikimedia Commons, sú uložené v priečinku <i>obrazky/</i> a boli len zmenšené na šírku 960 px; na stránke sa zobrazujú orezané na rovnaký pomer strán. Licencie CC BY a CC BY-SA vyžadujú uviesť autora a licenciu; CC0 je voľné dielo.</p>
+<ol class="zdroje">
+  <li>Krava: Kim Hansen, CC BY-SA 3.0 – https://commons.wikimedia.org/wiki/File:Cow_(Fleckvieh_breed)_Oeschinensee_Slaunger_2009-07-07.jpg</li>
+  <li>Ošípaná: Gzen92, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Cochon_domestique_(Sus_scrofa_domesticus)_(2).jpg</li>
+  <li>Ovca: Basotxerri, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Stubai_-_Tiroler_Bergschaf_-BT-_01.jpg</li>
+  <li>Koza: Wilfredor, CC0 – https://commons.wikimedia.org/wiki/File:Capra_aegagrus_hircus_in_isla_Margarita.jpg</li>
+  <li>Sliepka: Thegreenj, CC BY-SA 3.0 – https://commons.wikimedia.org/wiki/File:Hen_chicken.jpg</li>
+  <li>Ťažný kôň: Trougnouf, CC BY 4.0 – https://commons.wikimedia.org/wiki/File:Draft_horse_pulling_logs_in_Parc_naturel_Hautes_Fagnes,_Eupen,_Belgium_(VeloTour_54_to_55,_DSCF3703).jpg</li>
+  <li>Nemecký ovčiak: Jakub Hałun, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:20110425_German_Shepherd_Dog_8505.jpg</li>
+  <li>Včela medonosná: Martin Falbisoner, CC BY-SA 4.0 – https://commons.wikimedia.org/wiki/File:Bee_on_Lavender_Blossom_2.jpg</li>
+  <li>Čmeliak: Flocci Nivis, CC BY 4.0 – https://commons.wikimedia.org/wiki/File:20220802_Bombus_01.jpg</li>
+</ol>
+<p class="zdroje"><b>Chýbajúci obrázok – kapor:</b> na Commons nebola nájdená vhodná fotografia živého kapra (dostupné zábery ukazovali uloveného kapra alebo boli nejasné). Návrh na doplnenie: kategória <i>Cyprinus carpio</i> na Wikimedia Commons (https://commons.wikimedia.org/wiki/Category:Cyprinus_carpio) alebo vyhľadávanie „carp“ na Openverse (https://openverse.org) s filtrom licencií CC0, CC BY, CC BY-SA.</p>
+<p class="zdroje">Licencie: CC BY 4.0 – https://creativecommons.org/licenses/by/4.0/deed.sk · CC BY-SA 3.0 – https://creativecommons.org/licenses/by-sa/3.0/deed.sk · CC BY-SA 4.0 – https://creativecommons.org/licenses/by-sa/4.0/deed.sk · CC0 – https://creativecommons.org/publicdomain/zero/1.0/deed.sk</p>
+
+<p class="pata">Obsah vychádza zo Štátneho vzdelávacieho programu pre 6. ročník ZŠ a bol napísaný vlastnými slovami, nie podľa konkrétnej učebnice.</p>
+
+</article>
+</div>
+<script data-goatcounter="https://jasvarc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
